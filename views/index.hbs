@@ -1,2 +1,12 @@
-<h1>{{appTitle}} 🚀</h1>
-<p>Welcome Ironhacker!</p>
+<p>Welcome to Trip Planner</p>
+{{#if user}}
+  <h3>Hey,
+    {{user.username}}</h3>
+  <a href="/logout">Log out</a>
+  |
+  <a href="/profile">Profile</a>
+{{else}}
+  <a href="/login">Login</a>
+  |
+  <a href="/signup">Sign Up</a>
+{{/if}}

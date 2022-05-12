@@ -1,14 +1,18 @@
-<form action="/auth/signup" method="POST">
-   <label> Username
-      <input type="text" name="username">
-   </label>
-   <label> Password
-      <input type="password" name="password">
-   </label>
+<h2>Sign Up</h2>
+<div>
+  <form action="/signup" method="POST">
+    <label for="username">Username</label>
+    <input type="text" name="username" required />
+    <label for="password">Password</label>
+    <input type="password" name="password" required />
 
-   <button type="submit">Submit</button>
-</form>
+    <button type="submit">Sign Up</button>
+  </form>
+  <a href="/">Back Home</a>
+  |
+  <a href="/login">Already a member?</a>
 
-{{#if errorMessage}}
-   {{errorMessage}}
-{{/if}}
+  {{#if errorMessage}}
+    {{errorMessage}}
+  {{/if}}
+</div>
