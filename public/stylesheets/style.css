@@ -10,3 +10,18 @@ a {
 h1 {
   color: 15px;
 }
+.container {
+  display: flex;
+  border: 2px solid black;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+}
+
+#map {
+  border: 2px solid black;
+  width: 50%;
+  height: 90vh;
+}
