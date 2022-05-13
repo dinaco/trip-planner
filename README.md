@@ -149,9 +149,9 @@ The url to your presentation slides
 
 Developement:
 
-Dino Marchiori - [`<dinaco>`](https://github.com/dinaco) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/dino-marchiori/)
+Dino Marchiori - [`<dinaco>`](https://github.com/dinaco) - [`<linkedin - Dino`](https://www.linkedin.com/in/dino-marchiori/)
 
-Chloé Faurie- [`<chloe4E>`](https://github.com/chloe4E) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/chlo%C3%A9-faurie/)
+Chloé Faurie- [`<chloe4E>`](https://github.com/chloe4E) - [`<linkedin - Chloé>`](https://www.linkedin.com/in/chlo%C3%A9-faurie/)
 
 UI/UX:
 
