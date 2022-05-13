@@ -12,9 +12,9 @@ const Place = require("../models/Place.model");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
-  const { firstName } = req.session;
-  console.log(req.session);
+  const { firstName } = req.session.user;
 
+  console.log(req.session.user.firstName);
   res.render("profile/main", { firstName });
 });
 
