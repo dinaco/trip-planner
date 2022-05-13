@@ -80,17 +80,17 @@ Trip model
   location: {
     type: { type: String },
     coordinates: [Number],
+  dayActivities :[{ type: Schema.Types.ObjectId, ref: 'dayActivity' }],
   },
 
 }
 
 ```
 
-Trip details model (one Trip details element per day per trip)
+Day activities (dayActivity) model
 
 ```javascript
 {
-  tripId: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
   activityDate: Date,
   activities : [{name: String, location: {
     type: { type: String },
