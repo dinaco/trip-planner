@@ -15,7 +15,12 @@ router.get("/", isLoggedIn, (req, res, next) => {
   const { firstName, lastName, email, profileImage } = req.session.user;
 
   console.log(req.session.user.firstName);
-  res.render("profile/main", { firstName, lastName, email, profileImage });
+  res.render("profile/main", {
+    firstName,
+    lastName,
+    email,
+    profileImage,
+  });
 });
 
 module.exports = router;

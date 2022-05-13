@@ -119,6 +119,12 @@ We plan to use the rest countries API for hte overview page.
 
 ## Packages
 
+we are using:
+
+- moment
+- multer-storage-cloudinary
+- multer
+
 <br>
 
 ## Backlog
