@@ -12,10 +12,10 @@ const Place = require("../models/Place.model");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
-  const { firstName } = req.session.user;
+  const { firstName, lastName, email, profileImage } = req.session.user;
 
   console.log(req.session.user.firstName);
-  res.render("profile/main", { firstName });
+  res.render("profile/main", { firstName, lastName, email, profileImage });
 });
 
 module.exports = router;

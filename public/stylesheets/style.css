@@ -25,3 +25,18 @@ aside {
   width: 50%;
   height: 90vh;
 }
+
+.profile-header-img > img.img-circle {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #00b7ff;
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}
