@@ -1,1 +1,35 @@
-<h1>Hi here are you trip-details: <a href="/trips/trip-details">here</a></h1>
+<h1>Checkout your trips</h1>
+<main class="container row">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Input new trip</h5>
+      <form action="/trips/create" method="post">
+        <label for="cityName">City Name</label>
+        <input type="text" name="cityName" id="cityName" />
+        <label for="startDate">Start Date</label>
+        <input type="date" name="startDate" id="startDate" />
+        <label for="endDate">End Date</label>
+        <input type="date" name="endDate" id="endDate" />
+        <label for="accomodation">Accomodation</label>
+        <input type="text" name="accomodation" id="accomodation" />
+        <button type="submit">Create</button>
+      </form>
+    </div>
+  </div>
+  {{#each trips}}
+    <div class="card">
+      {{! <img class="card-img-top" src="..." alt="Card image cap"> }}
+      <div class="card-body">
+        <h5 class="card-title">{{cityName}}</h5>
+        <p class="card-text">Start Date: {{formatStartDate}}</p>
+        <p class="card-text">End Date: {{formatEndDate}}</p>
+        <p class="card-text">Accomodation: {{accomodation.name}}</p>
+        <a href="/trips/trip-details/{{_id}}" class="btn btn-primary">Add
+          Activities</a>
+        <form action="/trips/delete/{{_id}}" method="post">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  {{/each}}
+</main>
