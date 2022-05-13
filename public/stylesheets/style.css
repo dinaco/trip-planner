@@ -21,6 +21,9 @@ aside {
   width: 50%;
   height: 90vh;
 }
+.card {
+  width: 18rem;
+}
 
 .profile-header-img > img.img-circle {
   width: 120px;
