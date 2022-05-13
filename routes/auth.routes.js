@@ -4,6 +4,9 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
+// Handles cloudinyra for the image uplaod:
+const fileUploader = require("../config/cloudinary.config");
+
 // How many rounds should bcrypt run the salt (default [10 - 12 rounds])
 const saltRounds = 10;
 
@@ -18,23 +21,27 @@ router.get("/signup", isLoggedOut, (req, res) => {
   res.render("auth/signup");
 });
 
-router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, password } = req.body;
+router.post(
+  "/signup",
+  isLoggedOut,
+  fileUploader.single("profileImage"),
+  (req, res) => {
+    const { firstName, lastName, email, password } = req.body;
 
-  if (!username) {
-    return res.status(400).render("auth/signup", {
-      errorMessage: "Please provide your username.",
-    });
-  }
+    if (!email) {
+      return res.status(400).render("auth/signup", {
+        errorMessage: "Please provide your email.",
+      });
+    }
 
-  if (password.length < 8) {
-    return res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 8 characters long.",
-    });
-  }
+    if (password.length < 8) {
+      return res.status(400).render("auth/signup", {
+        errorMessage: "Your password needs to be at least 8 characters long.",
+      });
+    }
 
-  //   ! This use case is using a regular expression to control for special characters and min length
-  /*
+    //   ! This use case is using a regular expression to control for special characters and min length
+    /*
   const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
 
   if (!regex.test(password)) {
@@ -45,49 +52,65 @@ router.post("/signup", isLoggedOut, (req, res) => {
   }
   */
 
-  // Search the database for a user with the username submitted in the form
-  User.findOne({ username }).then((found) => {
-    // If the user is found, send the message username is taken
-    if (found) {
-      return res
-        .status(400)
-        .render("auth.signup", { errorMessage: "Username already taken." });
-    }
-
-    // if user is not found, create a new user - start with hashing the password
-    return bcrypt
-      .genSalt(saltRounds)
-      .then((salt) => bcrypt.hash(password, salt))
-      .then((hashedPassword) => {
-        // Create a user and save it in the database
-        return User.create({
-          username,
-          password: hashedPassword,
-        });
-      })
-      .then((user) => {
-        // Bind the user to the session object
-        req.session.user = user;
-        res.redirect("/");
-      })
-      .catch((error) => {
-        if (error instanceof mongoose.Error.ValidationError) {
-          return res
-            .status(400)
-            .render("auth/signup", { errorMessage: error.message });
-        }
-        if (error.code === 11000) {
-          return res.status(400).render("auth/signup", {
-            errorMessage:
-              "Username need to be unique. The username you chose is already in use.",
-          });
-        }
+    // Search the database for a user with the email submitted in the form
+    User.findOne({ email }).then((found) => {
+      // If the user is found, send the message username is taken
+      if (found) {
         return res
-          .status(500)
-          .render("auth/signup", { errorMessage: error.message });
-      });
-  });
-});
+          .status(400)
+          .render("auth.signup", { errorMessage: "email already taken." });
+      }
+
+      // if user is not found, create a new user - start with hashing the password
+      return bcrypt
+        .genSalt(saltRounds)
+        .then((salt) => bcrypt.hash(password, salt))
+        .then((hashedPassword) => {
+          // Create a user and save it in the database
+
+          //check if we have an image or not and create user according to this:
+          if (req.file) {
+            return User.create({
+              firstName,
+              lastName,
+              email,
+              password: hashedPassword,
+              profileImage: req.file.path,
+            });
+          } else {
+            return User.create({
+              firstName,
+              lastName,
+              email,
+              password: hashedPassword,
+            });
+          }
+          // end of the if statement and return user created
+        })
+        .then((user) => {
+          // Bind the user to the session object
+          req.session.user = user;
+          res.redirect("/");
+        })
+        .catch((error) => {
+          if (error instanceof mongoose.Error.ValidationError) {
+            return res
+              .status(400)
+              .render("auth/signup", { errorMessage: error.message });
+          }
+          if (error.code === 11000) {
+            return res.status(400).render("auth/signup", {
+              errorMessage:
+                "Username need to be unique. The username you chose is already in use.",
+            });
+          }
+          return res
+            .status(500)
+            .render("auth/signup", { errorMessage: error.message });
+        });
+    });
+  }
+);
 
 router.get("/login", isLoggedOut, (req, res) => {
   res.render("auth/login");
