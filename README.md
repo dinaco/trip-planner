@@ -75,7 +75,7 @@ Trip model
 {
   cityName: String,
   cityId: String,
-  startDate: Date.
+  startDate: Date,
   endDate: Date,
   location: {
     type: { type: String },
