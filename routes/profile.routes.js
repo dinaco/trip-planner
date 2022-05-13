@@ -19,19 +19,4 @@ router.get("/", isLoggedIn, (req, res, next) => {
   //  res.render("profile/main", { user });
 });
 
-router.post("/places/create", (req, res, next) => {
-  const { name, description, latitude, longitude } = req.body;
-
-  Place.create({
-    name,
-    description,
-    location: {
-      type: "Point",
-      coordinates: [longitude, latitude],
-    },
-  })
-    .then(() => res.redirect("/profile"))
-    .catch((err) => next(err));
-});
-
 module.exports = router;
