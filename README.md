@@ -18,7 +18,7 @@ App to help you schedule your trips in details with a calendar view and maps.
 - **logout** - As a user I want to be able to log out from the web page so that I can make sure no one will access my account
 - **trip list** - As a user I want to see the list of my trips (past and upcoming trips) and delete them.
 - **edit user** - As a user I want to be able to edit my profile and password (bonus: profile picture)
-- **trip list** - As a user, in a form I can select the city and dates of my trip (as well as accomodation place) and save it in my trip portfolio. I can see my other trips as cards if any.
+- **trip list** - As a user, in a form I can select the city and dates of my trip (as well as accomodation place <-bonus) and save it in my trip portfolio. I can see my other trips as cards if any.
   Once pressed "create trip", I am then rerouted to the "trip details page".
 - **trip details page**: As a user I can see a map centered on the accomodation place in the city of my trip. I can use a search bar to find venues that I want to visit. Once I select a place it will zoom in to the place, drop a marker, open an info window and I am able to save this place in my trip.
   By default the day is the first day of the trip unless I click on other dates available below the map.
