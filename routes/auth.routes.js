@@ -4,7 +4,7 @@ const router = require("express").Router();
 const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 
-// Handles cloudinyra for the image uplaod:
+// Handles cloudinary for the image uplaod:
 const fileUploader = require("../config/cloudinary.config");
 
 // How many rounds should bcrypt run the salt (default [10 - 12 rounds])
@@ -65,7 +65,7 @@ router.post(
       return bcrypt
         .genSalt(saltRounds)
         .then((salt) => bcrypt.hash(password, salt))
-        .then((hashedPassword) => {
+        .then((passwordHash) => {
           // Create a user and save it in the database
 
           //check if we have an image or not and create user according to this:
@@ -74,7 +74,7 @@ router.post(
               firstName,
               lastName,
               email,
-              password: hashedPassword,
+              passwordHash,
               profileImage: req.file.path,
             });
           } else {
@@ -82,7 +82,7 @@ router.post(
               firstName,
               lastName,
               email,
-              password: hashedPassword,
+              passwordHash,
             });
           }
           // end of the if statement and return user created
@@ -117,11 +117,11 @@ router.get("/login", isLoggedOut, (req, res) => {
 });
 
 router.post("/login", isLoggedOut, (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username) {
+  if (!email) {
     return res.status(400).render("auth/login", {
-      errorMessage: "Please provide your username.",
+      errorMessage: "Please provide your email.",
     });
   }
 
@@ -134,8 +134,9 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the username submitted in the form
-  User.findOne({ username })
+  User.findOne({ email })
     .then((user) => {
+      console.log(user);
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
         return res.status(400).render("auth/login", {
@@ -144,7 +145,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       }
 
       // If user is found based on the username, check if the in putted password matches the one saved in the database
-      bcrypt.compare(password, user.password).then((isSamePassword) => {
+      bcrypt.compare(password, user.passwordHash).then((isSamePassword) => {
         if (!isSamePassword) {
           return res.status(400).render("auth/login", {
             errorMessage: "Wrong credentials.",
