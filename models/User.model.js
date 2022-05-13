@@ -13,7 +13,11 @@ const userSchema = new Schema(
     },
     email: { type: String, unique: true },
 
-    profileImage: { type: String, default: "" },
+    profileImage: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dinaco/image/upload/v1652452983/trip-planner-project/no-pic_d1kqun.jpg",
+    },
     passwordHash: { type: String },
 
     trips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
