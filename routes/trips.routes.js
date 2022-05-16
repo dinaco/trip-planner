@@ -64,7 +64,7 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
   const { newActName, description, newActlLat, newActlLng } = req.body;
   const { id } = req.params;
-
+  console.log(id);
   Place.create({
     name: newActName,
     description,

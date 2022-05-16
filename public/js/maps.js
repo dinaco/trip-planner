@@ -73,7 +73,7 @@ function initMap() {
       };
 
       map.setCenter(center);
-    });
+    })
   } */
 
   /*   const directionService = new google.maps.DirectionsService();

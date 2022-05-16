@@ -2,9 +2,9 @@
 <div class="container">
   <div id="map"></div>
   <div id="infowindow-content">
-    <span id="place-name" class="title"></span><br />
-    <span id="place-address"></span>
-  </div>
+      <span id="place-name" class="title"></span><br />
+      <span id="place-address"></span>
+    </div>
 
   <aside>
     <form action="/trips/trip-details/{{_id}}/create" method="post">
@@ -24,30 +24,30 @@
       type="hidden"
       name="initLat"
       id="initLat"
-      value="{{cityLocation.coordinates.0}}"
+      value="{{cityLocation.coordinates.[0]}}"
     />
     <input
       type="hidden"
       name="initLng"
       id="initLng"
-      value="{{cityLocation.coordinates.1}}"
+      value="{{cityLocation.coordinates.[1]}}"
     />
-    <input type="text" name="searchActivities" id="searchActivities" />
-    {{#each places}}
+<input type="text" name="searchActivities" id="searchActivities" />
+   {{#each places}}
       <p><b class="place-name">{{name}}</b>: {{description}}</p>
       <input
         type="text"
         class="dbLng"
-        value="{{location.coordinates.0}}"
+        value="{{location.coordinates.[0]}}"
         hidden
       />
       <input
         type="text"
         class="dbLat"
-        value="{{location.coordinates.1}}"
+        value="{{location.coordinates.[1]}}"
         hidden
       />
-    {{/each}}
+    {{/each}} 
   </aside>
 
 </div>
