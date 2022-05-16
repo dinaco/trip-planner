@@ -26,8 +26,9 @@
         <p class="card-text">Start Date: {{formatStartDate}}</p>
         <p class="card-text">End Date: {{formatEndDate}}</p>
         <p class="card-text">Accomodation: {{accomodation.name}}</p>
-        <a href="/trips/trip-details/{{_id}}" class="btn btn-primary">Add
+                <a href="/trips/trip-details/{{_id}}" class="btn btn-primary">Add
           Activities</a>
+        <a href="/trips/trip-overview/{{_id}}" class="btn btn-primary">Trip Overview</a>
         <form action="/trips/delete/{{_id}}" method="post">
           <button type="submit" class="btn btn-danger">Delete</button>
         </form>

@@ -49,6 +49,16 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.get("/trip-overview/:id", isLoggedIn, (req, res, next) => {
+  const { id } = req.params;
+  Trip.findById(id)
+    // .populate('dayActivities')
+    .then((places) => {
+      res.render("trips/trip-overview/main", places);
+    })
+    .catch((err) => next(err));
+});
+
 router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
   Trip.findById(id)
@@ -62,6 +72,7 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
 
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
   const { name, description, latitude, longitude } = req.body;
+  const { id } = req.params;
 
   Place.create({
     name,
@@ -71,7 +82,7 @@ router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
       coordinates: [longitude, latitude],
     },
   })
-    .then(() => res.redirect("/trips/trip-details"))
+    .then(() => res.redirect(`/trips/trip-details/${id}`))
     .catch((err) => next(err));
 });
 

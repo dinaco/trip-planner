@@ -9,11 +9,11 @@ function initMap() {
     center: ironhackLX,
   });
 
-  const myMarker = new google.maps.Marker({
+  /*   const myMarker = new google.maps.Marker({
     position: ironhackLX,
     map: map,
     title: "Ironhack lx",
-  });
+  }); */
 
   //navigator // geolocation
   if (navigator.geolocation) {
