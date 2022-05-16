@@ -103,7 +103,7 @@ router.post(
       /*     .then((deleteActivity) => {
       return Trip.findByIdAndUpdate(id, {
         $push: { activities: createdActivity._id },
-      });
+      })
     }) */
       .then(() => res.redirect(`/trips/trip-details/${tripid}`))
       .catch((err) => next(err));

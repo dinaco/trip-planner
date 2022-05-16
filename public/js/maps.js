@@ -126,6 +126,7 @@ function initMap() {
         const infoWindow = new google.maps.InfoWindow({
           content: allNames[i].innerHTML,
         });
+
         infoWindow.open({
           anchor: marker,
           map,
