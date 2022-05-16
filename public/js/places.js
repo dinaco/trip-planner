@@ -1,5 +1,5 @@
 function initSearch() {
-  const input = document.getElementById("pac-input");
+  const cityInput = document.getElementById("cityName");
   /*   const options = {
     bounds: defaultBounds,
     componentRestrictions: { country: "us" },
@@ -7,16 +7,27 @@ function initSearch() {
     strictBounds: false,
     types: ["establishment"],
   }; */
-  const autocomplete = new google.maps.places.Autocomplete(input);
-  const infowindow = new google.maps.InfoWindow();
-  const infowindowContent = document.getElementById("infowindow-content");
+  const cityOptions = {
+    types: ["(cities)"],
+  };
+  const autocomplete = new google.maps.places.Autocomplete(
+    cityInput,
+    cityOptions
+  );
+  /*  const infowindow = new google.maps.InfoWindow();
+  const infowindowContent = document.getElementById("infowindow-content"); */
   autocomplete.addListener("place_changed", () => {
-    infowindow.close();
+    /*    infowindow.close(); */
     autocomplete.getPlace();
-    infowindowContent.children["place-name"].textContent = place.name;
+    const place = autocomplete.getPlace();
+    document.getElementById("cityLocationLat").value =
+      place.geometry.location.lat();
+    document.getElementById("cityLocationLng").value =
+      place.geometry.location.lng();
+    console.log(place.geometry.location.lat(), place.geometry.location.lng());
+    /*     infowindowContent.children["place-name"].textContent = place.name;
     infowindowContent.children["place-address"].textContent =
-      place.formatted_address;
-    infowindow.open(map, marker);
+      place.formatted_address; */
+    /*     infowindow.open(map, marker); */
   });
 }
-initSearch();

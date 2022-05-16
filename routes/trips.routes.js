@@ -27,29 +27,40 @@ router.get("/", isLoggedIn, (req, res, next) => {
 });
 
 router.post("/create", isLoggedIn, (req, res, next) => {
-  const { cityName, startDate, endDate, accomodation } = req.body;
+  const {
+    cityName,
+    cityLocationLat,
+    cityLocationLng,
+    startDate,
+    endDate,
+    accomodation,
+  } = req.body;
   Trip.create({
     cityName,
-    cityId: 1,
+    cityLocation: {
+      type: "Point",
+      coordinates: [cityLocationLat, cityLocationLng],
+    },
     startDate,
     endDate,
     "accomodation.name": accomodation,
-    location: {
-      type: "Point",
-      coordinates: [1, 1],
-    },
   })
     .then(() => res.redirect("/trips"))
     .catch((err) => next(err));
 });
 
-router.get("/trip-details", isLoggedIn, (req, res, next) => {
-  Place.find()
-    .then((places) => res.render("trips/trip-details/main", { places }))
+router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
+  const { id } = req.params;
+  Trip.findById(id)
+    // .populate('dayActivities')
+    .then((places) => {
+      console.log(places[0]);
+      res.render("trips/trip-details/main", places);
+    })
     .catch((err) => next(err));
 });
 
-router.post("/trip-details/create", isLoggedIn, (req, res, next) => {
+router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
   const { name, description, latitude, longitude } = req.body;
 
   Place.create({

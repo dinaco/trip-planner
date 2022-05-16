@@ -7,7 +7,7 @@
   <div id="map"></div>
 
   <aside>
-    <form action="/trips/trip-details/create" method="post">
+    <form action="/trips/trip-details/{{_id}}/create" method="post">
 
       <label for="name">Name</label>
       <input type="text" name="name" />
@@ -39,7 +39,6 @@
   </aside>
 
 </div>
-
 <script
   async
   src="https://maps.googleapis.com/maps/api/js?key={{mapsKey}}&callback=initMap"

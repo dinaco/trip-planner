@@ -85,5 +85,3 @@ function initMap() {
     }, 500 * i);
   }
 }
-
-initMap();
