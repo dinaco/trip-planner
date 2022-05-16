@@ -8,8 +8,6 @@ const User = require("../models/User.model");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-const Place = require("../models/Place.model");
-
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
   const { firstName, lastName, email, profileImage } = req.session.user;
@@ -21,6 +19,18 @@ router.get("/", isLoggedIn, (req, res, next) => {
     email,
     profileImage,
   });
+});
+
+router.get("/delete-profile", isLoggedIn, (req, res, next) => {
+  console.log(`the below id will be deleted: --- ↓↓↓ ----`);
+  console.log(req.session.user._id);
+
+  User.findByIdAndRemove(req.session.user._id).then(() =>
+    req.session.destroy((err) => {
+      if (err) next(err);
+      res.redirect("/");
+    })
+  );
 });
 
 module.exports = router;
