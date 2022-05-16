@@ -10,7 +10,7 @@ const moment = require("moment");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-const Place = require("../models/Place.model");
+//const Place = require("../models/Place.model");
 const Trip = require("../models/Trip.model");
 const Activity = require("../models/Activity.model");
 

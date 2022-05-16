@@ -13,6 +13,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 const Activity = require("../models/Activity.model");
 const Trip = require("../models/Trip.model");
 const User = require("../models/User.model");
+const Day = require("../models/Day.model");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
@@ -36,6 +37,8 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     endDate,
     accomodation,
   } = req.body;
+  let insertedTrip = "";
+  //create the trip obj
   Trip.create({
     cityName,
     cityLocation: {
@@ -47,9 +50,37 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     "accomodation.name": accomodation,
   })
     .then((createdTrip) => {
-      return User.findByIdAndUpdate(req.session.user._id, {
+      // trip is created, we need to create the day "objects":
+      insertedTrip = createdTrip;
+      let dateArr = [];
+      let dt = new Date(createdTrip.startDate);
+      const endDate = new Date(createdTrip.endDate);
+      while (dt <= endDate) {
+        dateArr.push({ date: new Date(dt) });
+        dt.setDate(dt.getDate() + 1);
+      }
+      // console.log(dateArr);
+
+      return Day.insertMany(dateArr);
+
+      /* return User.findByIdAndUpdate(req.session.user._id, {
         $push: { trips: createdTrip._id },
-      });
+      }) */
+    })
+    .then((createdDays) => {
+      console.log(`the trip id is: ${insertedTrip._id}`);
+      let daysArr = createdDays.map((e) => e._id);
+      console.log("daysArr is: " + daysArr);
+      console.log(daysArr[0]);
+      /*       for (let i = 0; i < createdDays.length; i++) {
+        Trip.findByIdAndUpdate(insertedTrip._id, {
+          $push: { days: createdDays[i]._id },
+        });
+        console.log("inserted: " + createdDays[i]._id);
+        console.log("overview: " + insertedTrip.days);
+      } */
+      //console.log("created days is: " + createdDays);
+      Trip.findByIdAndUpdate(insertedTrip._id, { $push: { days: daysArr[0] } });
     })
     .then(() => res.redirect("/trips"))
     .catch((err) => next(err));
