@@ -18,7 +18,7 @@ router.get("/trip-overview/:id", isLoggedIn, (req, res, next) => {
   Trip.findById(id)
     // .populate('dayActivities')
     .then((places) => {
-      res.render("trips/trip-overview", places);
+      res.render("trips/trip-overview", { places, user: req.session.user });
     })
     .catch((err) => next(err));
 });
