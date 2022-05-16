@@ -2,14 +2,10 @@
 <div class="container">
   <div id="map"></div>
   <div id="infowindow-content">
-      <span id="place-name" class="title"></span><br />
-      <span id="place-address"></span>
-    </div>
-
-  <aside>
     <form action="/trips/trip-details/{{_id}}/create" method="post">
-
-      <input type="hidden" name="newActName" id="newActName" />
+    <div id="place-name" class="title"></div>
+    <div id="place-address"></div>
+     <input type="hidden" name="newActName" id="newActName" />
 
       <label for="description">Description</label>
       <input type="text" name="description" />
@@ -17,10 +13,7 @@
       <label>Address</label>
       <input type="text" name="newActlLat" id="newActlLat" />
       <input type="text" name="newActlLng" id="newActlLng" />
-      <button type="submit">Submit</button>
-    </form>
-
-    <input
+      <input
       type="hidden"
       name="initLat"
       id="initLat"
@@ -32,8 +25,15 @@
       id="initLng"
       value="{{cityLocation.coordinates.[1]}}"
     />
-<input type="text" name="searchActivities" id="searchActivities" />
-   {{#each places}}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <aside>
+
+    
+    <input type="text" name="searchActivities" id="searchActivities" />
+    {{#each places}}
       <p><b class="place-name">{{name}}</b>: {{description}}</p>
       <input
         type="text"
@@ -47,7 +47,7 @@
         value="{{location.coordinates.[1]}}"
         hidden
       />
-    {{/each}} 
+    {{/each}}
   </aside>
 
 </div>

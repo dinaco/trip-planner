@@ -12,6 +12,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 const Place = require("../models/Place.model");
 const Trip = require("../models/Trip.model");
+const User = require("../models/User.model");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
@@ -45,6 +46,11 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     endDate,
     "accomodation.name": accomodation,
   })
+    .then((createdTrip) => {
+      return User.findByIdAndUpdate(req.session.user._id, {
+        $push: { trips: createdTrip._id },
+      });
+    })
     .then(() => res.redirect("/trips"))
     .catch((err) => next(err));
 });
@@ -64,7 +70,6 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
   const { newActName, description, newActlLat, newActlLng } = req.body;
   const { id } = req.params;
-  console.log(id);
   Place.create({
     name: newActName,
     description,
