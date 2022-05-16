@@ -14,7 +14,7 @@ const tripSchema = new Schema(
       type: { type: String },
       coordinates: [Number],
     },
-    dayActivities: [{ type: Schema.Types.ObjectId, ref: "dayActivity" }],
+    activities: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
   },
   {
     timestamps: true,

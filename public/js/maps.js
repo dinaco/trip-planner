@@ -48,8 +48,8 @@ function initMap() {
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
-    document.getElementById("newActlLat").innerHTML = place.name;
-    infowindowContent.children["place-address"].textContent =
+    document.getElementById("place-name").innerHTML = place.name;
+    document.getElementById("place-address").innerHTML =
       place.formatted_address;
     document.getElementById("newActlLat").value = place.geometry.location.lat();
     document.getElementById("newActlLng").value = place.geometry.location.lng();

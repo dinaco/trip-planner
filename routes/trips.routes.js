@@ -10,7 +10,7 @@ const moment = require("moment");
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedIn = require("../middleware/isLoggedIn");
 
-const Place = require("../models/Place.model");
+const Activity = require("../models/Activity.model");
 const Trip = require("../models/Trip.model");
 const User = require("../models/User.model");
 
@@ -58,7 +58,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
 router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
   Trip.findById(id)
-    // .populate('dayActivities')
+    .populate("activities")
     .then((trip) => {
       trip.formatStartDate = moment(trip.startDate).format("DD/MM/YYYY");
       trip.formatEndDate = moment(trip.endDate).format("DD/MM/YYYY");
@@ -68,16 +68,20 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
 });
 
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
-  const { newActName, description, newActlLat, newActlLng } = req.body;
+  const { newActName, newActlLat, newActlLng } = req.body;
   const { id } = req.params;
-  Place.create({
+  Activity.create({
     name: newActName,
-    description,
     location: {
       type: "Point",
       coordinates: [newActlLng, newActlLat],
     },
   })
+    .then((createdActivity) => {
+      return Trip.findByIdAndUpdate(id, {
+        $push: { activities: createdActivity._id },
+      });
+    })
     .then(() => res.redirect(`/trips/trip-details/${id}`))
     .catch((err) => next(err));
 });
