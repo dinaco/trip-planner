@@ -54,7 +54,9 @@ function initMap() {
     document.getElementById("newActlLat").value = place.geometry.location.lat();
     document.getElementById("newActlLng").value = place.geometry.location.lng();
     document.getElementById("newActName").value = place.name;
-    console.log(place);
+    document.getElementById(
+      "submitBtn"
+    ).innerHTML = `<button type="submit">Submit</button>`;
     infowindow.open(map, marker);
   });
 

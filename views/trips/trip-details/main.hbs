@@ -6,13 +6,8 @@
     <div id="place-name" class="title"></div>
     <div id="place-address"></div>
      <input type="hidden" name="newActName" id="newActName" />
-
-      <label for="description">Description</label>
-      <input type="text" name="description" />
-
-      <label>Address</label>
-      <input type="text" name="newActlLat" id="newActlLat" />
-      <input type="text" name="newActlLng" id="newActlLng" />
+      <input type="hidden" name="newActlLat" id="newActlLat" />
+      <input type="hidden" name="newActlLng" id="newActlLng" />
       <input
       type="hidden"
       name="initLat"
@@ -25,14 +20,16 @@
       id="initLng"
       value="{{cityLocation.coordinates.[1]}}"
     />
-      <button type="submit">Submit</button>
+      <div id="submitBtn"></div>
     </form>
   </div>
+  <div class="map-side">
+<input type="text" name="searchActivities" id="searchActivities" />
 
+</div>
   <aside>
 
     
-    <input type="text" name="searchActivities" id="searchActivities" />
     {{#each places}}
       <p><b class="place-name">{{name}}</b>: {{description}}</p>
       <input
@@ -47,6 +44,9 @@
         value="{{location.coordinates.[1]}}"
         hidden
       />
+    {{/each}}
+        {{#each dateArr}}
+      <p>{{this}}</p>
     {{/each}}
   </aside>
 

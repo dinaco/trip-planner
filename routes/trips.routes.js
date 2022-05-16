@@ -62,6 +62,14 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
     .then((trip) => {
       trip.formatStartDate = moment(trip.startDate).format("DD/MM/YYYY");
       trip.formatEndDate = moment(trip.endDate).format("DD/MM/YYYY");
+      trip.dateArr = [];
+      let dt = new Date(trip.startDate);
+      const endDate = new Date(trip.endDate);
+      while (dt <= endDate) {
+        trip.dateArr.push(moment(dt).format("DD/MM/YYYY"));
+        dt.setDate(dt.getDate() + 1);
+      }
+      console.log(trip);
       res.render("trips/trip-details/main", trip);
     })
     .catch((err) => next(err));
