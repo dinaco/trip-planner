@@ -21,7 +21,7 @@ router.get("/", isLoggedIn, (req, res, next) => {
         e.formatStartDate = moment(e.startDate).format("DD/MM/YYYY");
         e.formatEndDate = moment(e.endDate).format("DD/MM/YYYY");
       });
-      res.render("trips/main", { trips });
+      res.render("trips/main", { trips, user: req.session.user });
     })
     .catch((err) => next(err));
 });
