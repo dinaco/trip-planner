@@ -39,3 +39,15 @@ aside {
   align-items: center;
   align-content: stretch;
 }
+.trip-details {
+  display: flex;
+  gap: 1em;
+}
+.dayactivities {
+  width: 12em;
+  height: auto;
+}
+aside {
+  width: 50%;
+  height: auto;
+}

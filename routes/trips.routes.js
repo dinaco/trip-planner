@@ -94,6 +94,22 @@ router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.post(
+  "/trip-details/:id/delete/:tripid",
+  isLoggedIn,
+  (req, res, next) => {
+    const { id, tripid } = req.params;
+    Activity.findByIdAndRemove(id)
+      /*     .then((deleteActivity) => {
+      return Trip.findByIdAndUpdate(id, {
+        $push: { activities: createdActivity._id },
+      });
+    }) */
+      .then(() => res.redirect(`/trips/trip-details/${tripid}`))
+      .catch((err) => next(err));
+  }
+);
+
 router.post("/delete/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
   Trip.findByIdAndRemove(id)

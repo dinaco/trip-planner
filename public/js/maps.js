@@ -48,8 +48,8 @@ function initMap() {
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
-    document.getElementById("place-name").innerHTML = place.name;
-    document.getElementById("place-address").innerHTML =
+    document.getElementById("new-place-name").innerHTML = place.name;
+    document.getElementById("new-place-address").innerHTML =
       place.formatted_address;
     document.getElementById("newActlLat").value = place.geometry.location.lat();
     document.getElementById("newActlLng").value = place.geometry.location.lng();
@@ -122,7 +122,6 @@ function initMap() {
         animation: google.maps.Animation.DROP,
         map: map,
       });
-
       marker.addListener("click", () => {
         const infoWindow = new google.maps.InfoWindow({
           content: allNames[i].innerHTML,

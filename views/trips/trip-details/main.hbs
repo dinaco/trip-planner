@@ -1,37 +1,33 @@
 <h2>Trip to {{cityName}} from {{formatStartDate}} to {{formatEndDate}}</h2>
-<div class="container">
+<div class="container trip-details">
   <div id="map"></div>
   <div id="infowindow-content">
     <form action="/trips/trip-details/{{_id}}/create" method="post">
-    <div id="place-name" class="title"></div>
-    <div id="place-address"></div>
-     <input type="hidden" name="newActName" id="newActName" />
+      <div id="new-place-name"></div>
+      <div id="new-place-address"></div>
+      <input type="hidden" name="newActName" id="newActName" />
       <input type="hidden" name="newActlLat" id="newActlLat" />
       <input type="hidden" name="newActlLng" id="newActlLng" />
       <input
-      type="hidden"
-      name="initLat"
-      id="initLat"
-      value="{{cityLocation.coordinates.[0]}}"
-    />
-    <input
-      type="hidden"
-      name="initLng"
-      id="initLng"
-      value="{{cityLocation.coordinates.[1]}}"
-    />
+        type="hidden"
+        name="initLat"
+        id="initLat"
+        value="{{cityLocation.coordinates.[0]}}"
+      />
+      <input
+        type="hidden"
+        name="initLng"
+        id="initLng"
+        value="{{cityLocation.coordinates.[1]}}"
+      />
       <div id="submitBtn"></div>
     </form>
   </div>
-  <div class="map-side">
-<input type="text" name="searchActivities" id="searchActivities" />
-
-</div>
   <aside>
-
-    
-    {{#each places}}
-      <p><b class="place-name">{{name}}</b>: {{description}}</p>
+    <input type="text" name="searchActivities" id="searchActivities" />
+    {{#each activities}}
+    <form action="/trips/trip-details/{{_id}}/delete/{{trip._id}}" method="post"></form>
+      <p class="place-name">{{name}}</p>
       <input
         type="text"
         class="dbLng"
@@ -44,13 +40,24 @@
         value="{{location.coordinates.[1]}}"
         hidden
       />
-    {{/each}}
-        {{#each dateArr}}
-      <p>{{this}}</p>
+      <button type="submit">Remove</button>
+      </form>
     {{/each}}
   </aside>
 
 </div>
+<div class="row">
+  {{#each dateArr}}
+    <div class="card dayactivities">
+      <div class="card-body">
+        <h5 class="card-title">{{this}}</h5>
+        <p class="card-text">X many activities</p>
+      </div>
+    </div>
+  {{/each}}
+
+</div>
+
 <script
   async
   src="https://maps.googleapis.com/maps/api/js?key={{mapsKey}}&callback=initMap&libraries=places"
