@@ -64,7 +64,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
         });
       })
       .then((createdTrip) => {
-        console.log(createdTrip._id, req.session.user.email);
+        console.log(createdTrip._id, req.session.user._id);
         User.findByIdAndUpdate(req.session.user._id, {
           $push: { trips: createdTrip._id },
         });
