@@ -24,7 +24,6 @@ function initSearch() {
       place.geometry.location.lat();
     document.getElementById("cityLocationLng").value =
       place.geometry.location.lng();
-    console.log(place.geometry.location.lat(), place.geometry.location.lng());
     /*     infowindowContent.children["place-name"].textContent = place.name;
     infowindowContent.children["place-address"].textContent =
       place.formatted_address; */

@@ -1,7 +1,11 @@
 function initMap() {
+  const initLat = document.getElementById("initLat").value;
+  const initLng = document.getElementById("initLng").value;
+
+  console.log(initLat, initLng);
   const ironhackLX = {
-    lat: 38.711727961614365,
-    lng: -9.124128239466602,
+    lat: Number(initLat),
+    lng: Number(initLng),
   };
 
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -16,7 +20,7 @@ function initMap() {
   }); */
 
   //navigator // geolocation
-  if (navigator.geolocation) {
+  /*   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       const center = {
         lat: position.coords.latitude,
@@ -25,10 +29,10 @@ function initMap() {
 
       map.setCenter(center);
     });
-  }
+  } */
 
-  const directionService = new google.maps.DirectionsService();
-  const directionDisplay = new google.maps.DirectionsRenderer();
+  /*   const directionService = new google.maps.DirectionsService();
+  const directionDisplay = new google.maps.DirectionsRenderer(); */
 
   /* const directionRequest = {
       origin: ironhackLX,

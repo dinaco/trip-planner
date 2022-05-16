@@ -53,9 +53,9 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
   Trip.findById(id)
     // .populate('dayActivities')
-    .then((places) => {
-      console.log(places[0]);
-      res.render("trips/trip-details/main", places);
+    .then((trip) => {
+      console.log(trip);
+      res.render("trips/trip-details/main", trip);
     })
     .catch((err) => next(err));
 });
