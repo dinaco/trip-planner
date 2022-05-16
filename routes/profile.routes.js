@@ -10,14 +10,11 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
-  const { firstName, lastName, email, profileImage } = req.session.user;
+  /* const { firstName, lastName, email, profileImage } = req.session.user; */
 
-  console.log(req.session.user.firstName);
+  console.log(req.session.user);
   res.render("profile/main", {
-    firstName,
-    lastName,
-    email,
-    profileImage,
+    user: req.session.user,
   });
 });
 
