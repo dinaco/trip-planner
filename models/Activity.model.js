@@ -1,7 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const activitySchema = new Schema({
-  name: String,
   date: Date,
   location: {
     type: { type: String },
