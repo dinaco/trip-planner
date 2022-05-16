@@ -51,15 +51,11 @@ const dayActivitiesList = [
 
 Trip.create(hawaiTrip)
   .then((createdTrip) => {
-     User.findByIdAndUpdate("62821eaebcb5ca3b9d4aef53", {
+    return User.findByIdAndUpdate("62821eaebcb5ca3b9d4aef53", {
       $push: { trips: createdTrip._id },
     });
-    return createdTrip._id;
   })
-  .then((id) =>  {
-    User.findByIdAndUpdate("62821eaebcb5ca3b9d4aef53", {
-     $push: { trips: createdTrip._id },
-   });)
+  .then((result) => console.log(result))
   .catch((err) => next(err));
 
 //DayActivity.create(dayActivitiesList).then((createdAct) => return Trip.findByIdAndUpdate((), { $push: { DayActivity: dayActivitiesList._id}})))
