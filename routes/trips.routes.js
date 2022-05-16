@@ -54,22 +54,23 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   Trip.findById(id)
     // .populate('dayActivities')
     .then((trip) => {
-      console.log(trip);
+      trip.formatStartDate = moment(trip.startDate).format("DD/MM/YYYY");
+      trip.formatEndDate = moment(trip.endDate).format("DD/MM/YYYY");
       res.render("trips/trip-details/main", trip);
     })
     .catch((err) => next(err));
 });
 
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
-  const { name, description, latitude, longitude } = req.body;
+  const { newActName, description, newActlLat, newActlLng } = req.body;
   const { id } = req.params;
 
   Place.create({
-    name,
+    name: newActName,
     description,
     location: {
       type: "Point",
-      coordinates: [longitude, latitude],
+      coordinates: [newActlLng, newActlLat],
     },
   })
     .then(() => res.redirect(`/trips/trip-details/${id}`))

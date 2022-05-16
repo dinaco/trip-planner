@@ -1,50 +1,59 @@
-<h3>Hey,
-  {{user.username}}</h3>
-
+<h2>Trip to {{cityName}} from {{formatStartDate}} to {{formatEndDate}}</h2>
 <div class="container">
   <div id="map"></div>
+  <div id="infowindow-content">
+    <span id="place-name" class="title"></span><br />
+    <span id="place-address"></span>
+  </div>
 
   <aside>
     <form action="/trips/trip-details/{{_id}}/create" method="post">
 
-      <label for="name">Name</label>
-      <input type="text" name="name" />
+      <input type="hidden" name="newActName" id="newActName" />
 
       <label for="description">Description</label>
       <input type="text" name="description" />
 
       <label>Address</label>
-      <input type="hidden" name="latitude" id="lat" />
-      <input type="hidden" name="longitude" id="lng" />
+      <input type="text" name="newActlLat" id="newActlLat" />
+      <input type="text" name="newActlLng" id="newActlLng" />
       <button type="submit">Submit</button>
     </form>
 
-      <input type="hidden" name="initLat" id="initLat" value="{{cityLocation.coordinates.[0]}}" />
-      <input type="hidden" name="initLng" id="initLng" value="{{cityLocation.coordinates.[1]}}" />
-
-    <h2>{{cityName}}</h2>
-
-    {{!--    {{#each places}}
+    <input
+      type="hidden"
+      name="initLat"
+      id="initLat"
+      value="{{cityLocation.coordinates.0}}"
+    />
+    <input
+      type="hidden"
+      name="initLng"
+      id="initLng"
+      value="{{cityLocation.coordinates.1}}"
+    />
+    <input type="text" name="searchActivities" id="searchActivities" />
+    {{#each places}}
       <p><b class="place-name">{{name}}</b>: {{description}}</p>
       <input
         type="text"
         class="dbLng"
-        value="{{location.coordinates.[0]}}"
+        value="{{location.coordinates.0}}"
         hidden
       />
       <input
         type="text"
         class="dbLat"
-        value="{{location.coordinates.[1]}}"
+        value="{{location.coordinates.1}}"
         hidden
       />
-    {{/each}} --}}
+    {{/each}}
   </aside>
 
 </div>
 <script
   async
-  src="https://maps.googleapis.com/maps/api/js?key={{mapsKey}}&callback=initMap"
+  src="https://maps.googleapis.com/maps/api/js?key={{mapsKey}}&callback=initMap&libraries=places"
 >
 </script>
 <script src="../../../js/maps.js"></script>
