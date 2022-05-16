@@ -70,7 +70,7 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
         dt.setDate(dt.getDate() + 1);
       }
       console.log(trip);
-      res.render("trips/trip-details/main", trip);
+      res.render("trips/trip-details/main", { trip, user: req.session.user });
     })
     .catch((err) => next(err));
 });
