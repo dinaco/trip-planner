@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const User = require("../models/User.model");
 const Trip = require("../models/Trip.model");
-const DayActivity = require("../models/DayActivity.model");
+const DayActivity = require("../models/Activity.model");
 const MONGO_URI = require("../utils/consts");
 
 mongoose
@@ -51,15 +51,17 @@ const dayActivitiesList = [
 
 Trip.create(hawaiTrip)
   .then((createdTrip) => {
-     User.findByIdAndUpdate("62821eaebcb5ca3b9d4aef53", {
+    User.findByIdAndUpdate("62821eaebcb5ca3b9d4aef53", {
       $push: { trips: createdTrip._id },
     });
     return createdTrip._id;
   })
-  .then((id) =>  {
-    User.findByIdAndUpdate("62821eaebcb5ca3b9d4aef53", {
-     $push: { trips: createdTrip._id },
-   });)
+  .then((tripId) => {
+    Trip.findByIdAndUpdate(tripId, {
+      $push: { dayActivities: activitiesList._id },
+    });
+    return createdTrip._id;
+  })
   .catch((err) => next(err));
 
 //DayActivity.create(dayActivitiesList).then((createdAct) => return Trip.findByIdAndUpdate((), { $push: { DayActivity: dayActivitiesList._id}})))
