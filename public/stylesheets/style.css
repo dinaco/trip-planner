@@ -41,7 +41,6 @@ aside {
 }
 .trip-details {
   display: flex;
-
   gap: 1em;
 }
 .dayactivities {

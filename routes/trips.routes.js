@@ -37,53 +37,41 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     endDate,
     accomodation,
   } = req.body;
-  let insertedTrip = "";
-  //create the trip obj
-  Trip.create({
-    cityName,
-    cityLocation: {
-      type: "Point",
-      coordinates: [cityLocationLat, cityLocationLng],
-    },
-    startDate,
-    endDate,
-    "accomodation.name": accomodation,
-  })
-    .then((createdTrip) => {
-      // trip is created, we need to create the day "objects":
-      insertedTrip = createdTrip;
-      let dateArr = [];
-      let dt = new Date(createdTrip.startDate);
-      const endDate = new Date(createdTrip.endDate);
-      while (dt <= endDate) {
-        dateArr.push({ date: new Date(dt) });
-        dt.setDate(dt.getDate() + 1);
-      }
-      // console.log(dateArr);
+  let dateArr = [];
+  let dt = new Date(startDate);
+  const lastDate = new Date(endDate);
+  while (dt <= lastDate) {
+    dateArr.push({ date: new Date(dt) });
+    dt.setDate(dt.getDate() + 1);
+  }
+  // console.log(dateArr);
 
-      return Day.insertMany(dateArr);
-
-      /* return User.findByIdAndUpdate(req.session.user._id, {
-        $push: { trips: createdTrip._id },
-      }) */
-    })
-    .then((createdDays) => {
-      console.log(`the trip id is: ${insertedTrip._id}`);
-      let daysArr = createdDays.map((e) => e._id);
-      console.log("daysArr is: " + daysArr);
-      console.log(daysArr[0]);
-      /*       for (let i = 0; i < createdDays.length; i++) {
-        Trip.findByIdAndUpdate(insertedTrip._id, {
-          $push: { days: createdDays[i]._id },
+  return (
+    Day.insertMany(dateArr)
+      //create the trip obj
+      .then((createdDays) => {
+        const daysArr = createdDays.map((e) => e._id);
+        return Trip.create({
+          cityName,
+          cityLocation: {
+            type: "Point",
+            coordinates: [cityLocationLat, cityLocationLng],
+          },
+          startDate,
+          endDate,
+          "accomodation.name": accomodation,
+          days: daysArr,
         });
-        console.log("inserted: " + createdDays[i]._id);
-        console.log("overview: " + insertedTrip.days);
-      } */
-      //console.log("created days is: " + createdDays);
-      Trip.findByIdAndUpdate(insertedTrip._id, { $push: { days: daysArr[0] } });
-    })
-    .then(() => res.redirect("/trips"))
-    .catch((err) => next(err));
+      })
+      .then((createdTrip) => {
+        console.log(createdTrip._id, req.session.user.email);
+        User.findByIdAndUpdate(req.session.user._id, {
+          $push: { trips: createdTrip._id },
+        });
+      })
+      .then(() => res.redirect("/trips"))
+      .catch((err) => next(err))
+  );
 });
 
 router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
@@ -100,7 +88,6 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
         trip.dateArr.push(moment(dt).format("DD/MM/YYYY"));
         dt.setDate(dt.getDate() + 1);
       }
-      console.log(trip);
       res.render("trips/trip-details/main", { trip, user: req.session.user });
     })
     .catch((err) => next(err));
