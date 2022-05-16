@@ -12,7 +12,7 @@ const isLoggedIn = require("../middleware/isLoggedIn");
 
 const Place = require("../models/Place.model");
 const Trip = require("../models/Trip.model");
-const DayActivity = require("../models/DayActivity.model");
+const Activity = require("../models/Activity.model");
 
 router.get("/trip-overview/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
