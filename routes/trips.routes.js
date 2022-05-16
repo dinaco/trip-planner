@@ -49,16 +49,6 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.get("/trip-overview/:id", isLoggedIn, (req, res, next) => {
-  const { id } = req.params;
-  Trip.findById(id)
-    // .populate('dayActivities')
-    .then((places) => {
-      res.render("trips/trip-overview/main", places);
-    })
-    .catch((err) => next(err));
-});
-
 router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
   Trip.findById(id)

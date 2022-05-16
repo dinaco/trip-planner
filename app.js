@@ -37,6 +37,8 @@ app.use("/profile", profileRoutes);
 
 const tripsRoutes = require("./routes/trips.routes");
 app.use("/trips", tripsRoutes);
+const tripOverview = require("./routes/tripOverview.routes");
+app.use("/trips", tripOverview);
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
