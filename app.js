@@ -24,6 +24,8 @@ const projectName = "trip-planner";
 
 app.locals.appTitle = `${capitalized(projectName)} created with IronLauncher`;
 app.locals.mapsKey = process.env.MAPS_KEY;
+app.locals.triposo_account = process.env.TRIPOSO_ACCOUNT;
+app.locals.triposo_token = process.env.TRIPOSO_TOKEN;
 
 // 👇 Start handling routes here
 const index = require("./routes/index.routes");
