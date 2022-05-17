@@ -17,11 +17,21 @@ const Day = require("../models/Day.model");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
-  Trip.find()
+  //
+
+  User.findById(req.session.user._id)
+    .populate("trips")
+    .then((data) => {
+      console.log(data);
+      res.render("trips/main", { data, user: req.session.user });
+    })
+    .catch((err) => next(err));
+
+  /*   Trip.find()
     .then((trips) => {
       res.render("trips/main", { trips, user: req.session.user });
     })
-    .catch((err) => next(err));
+    .catch((err) => next(err)); */
 });
 
 router.post("/create", isLoggedIn, (req, res, next) => {
