@@ -95,7 +95,7 @@ function initMap() {
     });
     directionDisplay.setMap(map); */
 
-  map.addListener("click", (mapMouseEvent) => {
+  /*   map.addListener("click", (mapMouseEvent) => {
     infowindow.close();
     const marker = new google.maps.Marker({
       position: {
@@ -112,9 +112,8 @@ function initMap() {
       map,
       shouldFocus: false,
     });
-  });
+  }); */
 
-  //let allNames = document.getElementsByClassName("place-name");
   function dropMarkers() {
     const allMarkersLat = document.querySelectorAll(".markers-lat");
     allMarkersLat.forEach((e) => e.classList.remove("dbLat"));
@@ -134,6 +133,9 @@ function initMap() {
     });
     let allLat = document.getElementsByClassName("dbLat");
     let allLng = document.getElementsByClassName("dbLng");
+    let allNames = document
+      .querySelector(".selected")
+      .getElementsByClassName("place-name");
     for (let i = 0; i < allLat.length; i++) {
       setTimeout(() => {
         const marker = new google.maps.Marker({
@@ -141,15 +143,26 @@ function initMap() {
             lat: Number(allLat[i].value),
             lng: Number(allLng[i].value),
           },
+          label: `${i + 1}`,
           animation: google.maps.Animation.DROP,
           map: map,
         });
         markers.push(marker);
         marker.addListener("click", () => {
-          const infoWindow = new google.maps.InfoWindow({
-            content: allNames[i].innerHTML,
-          });
+          const contentString = `<div id="content">
+          <h3>${allNames[i].innerHTML}</h3>
+          <form action="/trips/trip-details/${
+            document.getElementById("dateId").value
+          }/delete/${
+            document.getElementById("activity-id").value
+          }" method="post">
+          <button type="submit">Delete</button>
+          </form>
+          </div>`;
 
+          const infoWindow = new google.maps.InfoWindow({
+            content: contentString,
+          });
           infoWindow.open({
             anchor: marker,
             map,
@@ -165,8 +178,6 @@ function initMap() {
     }
   }
   const dateCards = document.querySelectorAll(".card");
-  /*   dateCards[0].classList.toggle("selected");
-  dropMarkers(); */
   for (let i = 0; i < dateCards.length; i++) {
     if (dateCards[i].id == document.getElementById("dateId").value) {
       dateCards[i].classList.toggle("selected");
@@ -182,8 +193,6 @@ function initMap() {
       document
         .getElementById(event.currentTarget.id)
         .classList.toggle("selected");
-      /*       document.querySelectorAll(".markers-lat").classList.toggle("dbLat");
-      document.querySelectorAll(".markers-lng").classList.toggle("dbLng"); */
       dropMarkers();
     });
   }
