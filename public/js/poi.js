@@ -23,11 +23,10 @@ location_id=Delft
 &fields=id,name,score,intro,tag_labels,best_for
 &order_by=-score */
 
-require("dotenv/config");
+//https://github.com/paigetiedeman/city-tour/blob/main/src/index.js
 
 const getCityRestaurants = (cityName) => {
   console.log(cityName);
-  console.log(process.env.TRIPOSO_ACCOUNT);
 
   axios
     .get(

@@ -8,6 +8,7 @@
         <input type="text" name="cityName" id="cityName" />
         <input type="hidden" name="cityLocationLat" id="cityLocationLat">
         <input type="hidden" name="cityLocationLng" id="cityLocationLng">
+        <input type="hidden" name="photoUrl" id="photoUrl">
         <label for="startDate">Start Date</label>
         <input type="date" name="startDate" id="startDate" />
         <label for="endDate">End Date</label>
@@ -23,15 +24,22 @@
       {{! <img class="card-img-top" src="..." alt="Card image cap"> }}
       <div class="card-body">
         <h5 class="card-title">{{cityName}}</h5>
+        <img src={{photoUrl}} alt="photo-trip" class="card-img-top">
         <p class="card-text">Start Date: {{formatStartDate}}</p>
         <p class="card-text">End Date: {{formatEndDate}}</p>
         <p class="card-text">Accomodation: {{accomodation.name}}</p>
-                <a href="/trips/trip-details/{{_id}}" class="btn btn-primary">Add
+
+        <div >
+           <a href="/trips/trip-details/{{_id}}" class="btn btn-primary px-5 btn-block">Add
           Activities</a>
-        <a href="/trips/trip-overview/{{_id}}" class="btn btn-primary">Trip Overview</a>
+{{!--         <a href="/trips/trip-overview/{{_id}}" class="btn btn-primary">Trip Overview</a> --}}
+       <br>
+       <br>
         <form action="/trips/delete/{{_id}}" method="post">
-          <button type="submit" class="btn btn-danger">Delete</button>
+          <button type="submit" class="btn btn-danger px-5 ">Delete</button>
         </form>
+        </div>
+               
       </div>
     </div>
   {{/each}}

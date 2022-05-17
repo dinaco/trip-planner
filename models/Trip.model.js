@@ -16,6 +16,7 @@ const tripSchema = new Schema(
       type: { type: String },
       coordinates: [Number],
     },
+    photoUrl: { type: String },
     days: [{ type: Schema.Types.ObjectId, ref: "Day" }],
   },
   {

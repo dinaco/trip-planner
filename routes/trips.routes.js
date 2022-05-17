@@ -32,6 +32,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     startDate,
     endDate,
     accomodation,
+    photoUrl,
   } = req.body;
   let dateArr = [];
   let dt = new Date(startDate);
@@ -62,6 +63,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
           formatEndDate: moment(endDate).format("DD/MM/YYYY"),
           "accomodation.name": accomodation,
           days: daysArr,
+          photoUrl,
         });
       })
       .then((createdTrip) => {
