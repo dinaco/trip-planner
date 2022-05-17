@@ -104,7 +104,6 @@ function initMap() {
       },
       map: map,
     });
-    console.log(marker);
     document.getElementById("newActlLat").value = marker.position.lat;
     document.getElementById("newActlLng").value = marker.position.lng;
 
@@ -117,6 +116,22 @@ function initMap() {
 
   //let allNames = document.getElementsByClassName("place-name");
   function dropMarkers() {
+    const allMarkersLat = document.querySelectorAll(".markers-lat");
+    allMarkersLat.forEach((e) => e.classList.remove("dbLat"));
+    const allMarkersLng = document.querySelectorAll(".markers-lng");
+    allMarkersLng.forEach((e) => e.classList.remove("dbLng"));
+    const initMarkersLat = document
+      .querySelector(".selected")
+      .querySelectorAll(".markers-lat");
+    const initMarkersLng = document
+      .querySelector(".selected")
+      .querySelectorAll(".markers-lng");
+    initMarkersLat.forEach((e) => {
+      e.classList.toggle("dbLat");
+    });
+    initMarkersLng.forEach((e) => {
+      e.classList.toggle("dbLng");
+    });
     let allLat = document.getElementsByClassName("dbLat");
     let allLng = document.getElementsByClassName("dbLng");
     for (let i = 0; i < allLat.length; i++) {
@@ -151,21 +166,20 @@ function initMap() {
   }
   const dateCards = document.querySelectorAll(".card");
   dateCards[0].classList.toggle("selected");
-  const initMarkers = dateCards[0].querySelectorAll(".markers-lat");
   dropMarkers();
   for (let i = 0; i < dateCards.length; i++) {
     dateCards[i].addEventListener("click", (event) => {
       setMapOnAll(null);
       markers = [];
-      dateCards.forEach((box) => {
-        box.classList.remove("selected");
+      dateCards.forEach((e) => {
+        e.classList.remove("selected");
       });
       document.getElementById("dateId").value = event.currentTarget.id;
       document
         .getElementById(event.currentTarget.id)
         .classList.toggle("selected");
-      document.getElementById("markers-lat").classList.toggle("dbLat");
-      document.getElementById("markers-lng").classList.toggle("dbLng");
+      /*       document.querySelectorAll(".markers-lat").classList.toggle("dbLat");
+      document.querySelectorAll(".markers-lng").classList.toggle("dbLng"); */
       dropMarkers();
     });
   }

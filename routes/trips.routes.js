@@ -43,7 +43,6 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     });
     dt.setDate(dt.getDate() + 1);
   }
-  // console.log(dateArr);
 
   return (
     Day.insertMany(dateArr)
@@ -88,7 +87,6 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
       },
     })
     .then((trip) => {
-      console.log(trip.days[0].activities);
       res.render("trips/trip-details/main", { trip, user: req.session.user });
     })
     .catch((err) => next(err));
@@ -105,7 +103,6 @@ router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
     },
   })
     .then((createdActivity) => {
-      console.log(createdActivity);
       return Day.findByIdAndUpdate(dateId, {
         $push: { activities: createdActivity._id },
       });
