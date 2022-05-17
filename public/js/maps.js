@@ -90,7 +90,7 @@ function initMap() {
       if (status === 'OK') {
         directionDisplay.setDirections(response);
       } else {
-        window.alert('No direction found');
+        window.alert('No direction foundd');
       }
     });
     directionDisplay.setMap(map); */

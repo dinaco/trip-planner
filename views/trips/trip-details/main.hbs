@@ -1,4 +1,9 @@
-<h2>Trip to {{trip.cityName}} from {{trip.formatStartDate}} to {{trip.formatEndDate}}</h2>
+<h2>Trip too
+  {{trip.cityName}}
+  from
+  {{trip.formatStartDate}}
+  to
+  {{trip.formatEndDate}}</h2>
 <div class="container trip-details">
   <div id="map"></div>
   <div id="infowindow-content">
@@ -8,43 +13,57 @@
       <input type="hidden" name="newActName" id="newActName" />
       <input type="hidden" name="newActlLat" id="newActlLat" />
       <input type="hidden" name="newActlLng" id="newActlLng" />
-      <input type="hidden" name="dateId" id="dateId" value="{{trip.days.0._id}}" />
+      <input
+        type="hidden"
+        name="dateId"
+        id="dateId"
+        value="{{trip.days.0._id}}"
+      />
       <input
         type="hidden"
         name="initLat"
         id="initLat"
-        value="{{trip.cityLocation.coordinates.[0]}}"
+        value="{{trip.cityLocation.coordinates.0}}"
       />
       <input
         type="hidden"
         name="initLng"
         id="initLng"
-        value="{{trip.cityLocation.coordinates.[1]}}"
+        value="{{trip.cityLocation.coordinates.1}}"
       />
       <div id="submitBtn"></div>
     </form>
   </div>
   <aside>
     <input type="text" name="searchActivities" id="searchActivities" />
-      {{#each trip.days}}
-    <div class="card" id="{{_id}}">
-      <div class="card-body">
-        <h5 class="card-title">{{formatDate}}</h5>
-        <ol>
-        {{#each activities}}
-        <li class="card-text">{{name}}</li>
-      <input type="text" class="markers-lng" value="{{location.coordinates.[0]}}" hidden>
-      <input type="text" class="markers-lat" value="{{location.coordinates.[1]}}" hidden>
-        {{/each}}
-        </ol>
+    {{#each trip.days}}
+      <div class="card" id="{{_id}}">
+        <div class="card-body">
+          <h5 class="card-title">{{formatDate}}</h5>
+          <ol>
+            {{#each activities}}
+              <li class="card-text">{{name}}</li>
+              <input
+                type="text"
+                class="markers-lng"
+                value="{{location.coordinates.0}}"
+                hidden
+              />
+              <input
+                type="text"
+                class="markers-lat"
+                value="{{location.coordinates.1}}"
+                hidden
+              />
+            {{/each}}
+          </ol>
+        </div>
       </div>
-    </div>
-  {{/each}}
+    {{/each}}
   </aside>
 
 </div>
 <div class="row">
-
 
 </div>
 
