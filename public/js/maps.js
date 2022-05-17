@@ -153,8 +153,8 @@ function initMap() {
           <h3>${allNames[i].innerHTML}</h3>
           <form action="/trips/trip-details/${
             document.getElementById("dateId").value
-          }/delete/${
-            document.getElementById("activity-id").value
+          }/delete/${document.getElementsByClassName("activity-id")[i].value}/${
+            document.getElementById("trip-id").value
           }" method="post">
           <button type="submit">Delete</button>
           </form>

@@ -4,6 +4,12 @@
   {{trip.formatStartDate}}
   to
   {{trip.formatEndDate}}</h2>
+                <input
+                type="text"
+                id="trip-id"
+                value="{{trip._id}}"
+                hidden
+              />
 <div class="container trip-details">
   <div id="map"></div>
   <div id="infowindow-content">
@@ -58,7 +64,7 @@
               />
               <input
                 type="text"
-                id="activity-id"
+                class="activity-id"
                 value="{{_id}}"
                 hidden
               />

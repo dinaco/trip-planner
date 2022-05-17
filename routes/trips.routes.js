@@ -120,17 +120,20 @@ router.post("/trip-details/:tripId/create", isLoggedIn, (req, res, next) => {
 });
 
 router.post(
-  "/trip-details/:id/delete/:tripid",
+  "/trip-details/:dateId/delete/:activityId/:tripId",
   isLoggedIn,
   (req, res, next) => {
-    const { id, tripid } = req.params;
-    Activity.findByIdAndRemove(id)
+    const { dateId, activityId, tripId } = req.params;
+    Activity.findByIdAndRemove(activityId)
       /*     .then((deleteActivity) => {
       return Trip.findByIdAndUpdate(id, {
         $push: { activities: createdActivity._id },
       })
     }) */
-      .then(() => res.redirect(`/trips/trip-details/${tripid}`))
+      .then(() => {
+        console.log("deleted");
+        res.redirect(`/trips/${tripId}/trip-details/${dateId}`);
+      })
       .catch((err) => next(err));
   }
 );
