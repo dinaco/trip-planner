@@ -1,0 +1,21 @@
+<h2>Edit your profile picture</h2>
+<div>
+  <form
+    action="/profile/edit-profile-picture"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+
+    <label for="profileImage">Profile picture</label>
+    <input type="file" name="profileImage" value={{user.profileImage}} />
+
+    <button type="submit">Save new picture</button>
+  </form>
+  {{!   <a href="/">Back Home</a>
+  |
+  <a href="/login">Already a member?</a>
+ }}
+  {{#if errorMessage}}
+    {{errorMessage}}
+  {{/if}}
+</div>

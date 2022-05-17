@@ -30,4 +30,24 @@ router.get("/delete-profile", isLoggedIn, (req, res, next) => {
   );
 });
 
+router.get("/edit-profile-picture", isLoggedIn, (req, res, next) => {
+  res.render("profile/edit-profile", {
+    user: req.session.user,
+  });
+});
+
+router.post("/edit-profile-picture", isLoggedIn, (req, res, next) => {
+  console.log(`the below id will be edited: --- ↓↓↓ ----`);
+  console.log(req.session.user._id);
+
+  if (req.file) {
+    return User.findByIdAndUpdate(req.session.user._id, {
+      profileImage: req.file.path,
+    });
+  } else {
+  }
+
+  res.redirect("/");
+});
+
 module.exports = router;
