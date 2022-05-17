@@ -77,7 +77,14 @@ router.post("/create", isLoggedIn, (req, res, next) => {
 router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   const { id } = req.params;
   Trip.findById(id)
-    .populate("activities")
+    .populate({
+      path: "days",
+      model: "Day",
+      populate: {
+        path: "activities",
+        model: "Activity",
+      },
+    })
     .then((trip) => {
       trip.formatStartDate = moment(trip.startDate).format("DD/MM/YYYY");
       trip.formatEndDate = moment(trip.endDate).format("DD/MM/YYYY");
@@ -88,6 +95,7 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
         trip.dateArr.push(moment(dt).format("DD/MM/YYYY"));
         dt.setDate(dt.getDate() + 1);
       }
+      console.log(trip);
       res.render("trips/trip-details/main", { trip, user: req.session.user });
     })
     .catch((err) => next(err));

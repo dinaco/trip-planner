@@ -1,8 +1,8 @@
-<h2>Trip to {{cityName}} from {{formatStartDate}} to {{formatEndDate}}</h2>
+<h2>Trip to {{trip.cityName}} from {{trip.formatStartDate}} to {{trip.formatEndDate}}</h2>
 <div class="container trip-details">
   <div id="map"></div>
   <div id="infowindow-content">
-    <form action="/trips/trip-details/{{_id}}/create" method="post">
+    <form action="/trips/trip-details/{{trip._id}}/create" method="post">
       <div id="new-place-name"></div>
       <div id="new-place-address"></div>
       <input type="hidden" name="newActName" id="newActName" />
@@ -12,13 +12,13 @@
         type="hidden"
         name="initLat"
         id="initLat"
-        value="{{cityLocation.coordinates.[0]}}"
+        value="{{trip.cityLocation.coordinates.[0]}}"
       />
       <input
         type="hidden"
         name="initLng"
         id="initLng"
-        value="{{cityLocation.coordinates.[1]}}"
+        value="{{trip.cityLocation.coordinates.[1]}}"
       />
       <div id="submitBtn"></div>
     </form>
@@ -47,10 +47,10 @@
 
 </div>
 <div class="row">
-  {{#each dateArr}}
+  {{#each trip.days}}
     <div class="card dayactivities">
       <div class="card-body">
-        <h5 class="card-title">{{this}}</h5>
+        <h5 class="card-title">{{date}}</h5>
         <p class="card-text">X many activities</p>
       </div>
     </div>
