@@ -4,7 +4,9 @@ const tripSchema = new Schema(
   {
     cityName: { type: String, required: true },
     startDate: { type: Date, required: true },
+    formatStartDate: String,
     endDate: { type: Date, required: true },
+    formatEndDate: String,
     accomodation: {
       name: { type: String },
       type: { type: String },

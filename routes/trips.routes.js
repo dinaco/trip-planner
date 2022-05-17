@@ -19,10 +19,6 @@ const Day = require("../models/Day.model");
 router.get("/", isLoggedIn, (req, res, next) => {
   Trip.find()
     .then((trips) => {
-      trips.forEach((e) => {
-        e.formatStartDate = moment(e.startDate).format("DD/MM/YYYY");
-        e.formatEndDate = moment(e.endDate).format("DD/MM/YYYY");
-      });
       res.render("trips/main", { trips, user: req.session.user });
     })
     .catch((err) => next(err));
@@ -41,7 +37,10 @@ router.post("/create", isLoggedIn, (req, res, next) => {
   let dt = new Date(startDate);
   const lastDate = new Date(endDate);
   while (dt <= lastDate) {
-    dateArr.push({ date: new Date(dt) });
+    dateArr.push({
+      date: new Date(dt),
+      formatDate: moment(dt).format("DD/MM/YYYY"),
+    });
     dt.setDate(dt.getDate() + 1);
   }
   // console.log(dateArr);
@@ -58,7 +57,9 @@ router.post("/create", isLoggedIn, (req, res, next) => {
             coordinates: [cityLocationLat, cityLocationLng],
           },
           startDate,
+          formatStartDate: moment(startDate).format("DD/MM/YYYY"),
           endDate,
+          formatEndDate: moment(endDate).format("DD/MM/YYYY"),
           "accomodation.name": accomodation,
           days: daysArr,
         });
@@ -80,30 +81,21 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
   Trip.findById(id)
     .populate({
       path: "days",
-      model: "Day",
+      model: Day,
       populate: {
         path: "activities",
-        model: "Activity",
+        model: Activity,
       },
     })
     .then((trip) => {
-      trip.formatStartDate = moment(trip.startDate).format("DD/MM/YYYY");
-      trip.formatEndDate = moment(trip.endDate).format("DD/MM/YYYY");
-      trip.dateArr = [];
-      let dt = new Date(trip.startDate);
-      const endDate = new Date(trip.endDate);
-      while (dt <= endDate) {
-        trip.dateArr.push(moment(dt).format("DD/MM/YYYY"));
-        dt.setDate(dt.getDate() + 1);
-      }
-      //   console.log(trip);
+      console.log(trip.days[0].activities);
       res.render("trips/trip-details/main", { trip, user: req.session.user });
     })
     .catch((err) => next(err));
 });
 
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
-  const { newActName, newActlLat, newActlLng } = req.body;
+  const { newActName, newActlLat, newActlLng, dateId } = req.body;
   const { id } = req.params;
   return Activity.create({
     name: newActName,
@@ -113,8 +105,8 @@ router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
     },
   })
     .then((createdActivity) => {
-      console.log(createdActivity._id);
-      Trip.findByIdAndUpdate(id, {
+      console.log(createdActivity);
+      return Day.findByIdAndUpdate(dateId, {
         $push: { activities: createdActivity._id },
       });
     })

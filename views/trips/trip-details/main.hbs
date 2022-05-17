@@ -8,6 +8,7 @@
       <input type="hidden" name="newActName" id="newActName" />
       <input type="hidden" name="newActlLat" id="newActlLat" />
       <input type="hidden" name="newActlLng" id="newActlLng" />
+      <input type="hidden" name="dateId" id="dateId" value="{{trip.days.0._id}}" />
       <input
         type="hidden"
         name="initLat"
@@ -25,36 +26,25 @@
   </div>
   <aside>
     <input type="text" name="searchActivities" id="searchActivities" />
-    {{#each activities}}
-    <form action="/trips/trip-details/{{_id}}/delete/{{trip._id}}" method="post"></form>
-      <p class="place-name">{{name}}</p>
-      <input
-        type="text"
-        class="dbLng"
-        value="{{location.coordinates.[0]}}"
-        hidden
-      />
-      <input
-        type="text"
-        class="dbLat"
-        value="{{location.coordinates.[1]}}"
-        hidden
-      />
-      <button type="submit">Remove</button>
-      </form>
-    {{/each}}
+      {{#each trip.days}}
+    <div class="card" id="{{_id}}">
+      <div class="card-body">
+        <h5 class="card-title">{{formatDate}}</h5>
+        <ol>
+        {{#each activities}}
+        <li class="card-text">{{name}}</li>
+      <input type="text" id="markers-lng" value="{{location.coordinates.[0]}}" hidden>
+      <input type="text" id="markers-lat" value="{{location.coordinates.[1]}}" hidden>
+        {{/each}}
+        </ol>
+      </div>
+    </div>
+  {{/each}}
   </aside>
 
 </div>
 <div class="row">
-  {{#each trip.days}}
-    <div class="card dayactivities">
-      <div class="card-body">
-        <h5 class="card-title">{{date}}</h5>
-        <p class="card-text">X many activities</p>
-      </div>
-    </div>
-  {{/each}}
+
 
 </div>
 

@@ -1,15 +1,15 @@
 function initMap() {
   const initLat = document.getElementById("initLat").value;
   const initLng = document.getElementById("initLng").value;
-
-  const ironhackLX = {
+  let markers = [];
+  const cityView = {
     lat: Number(initLat),
     lng: Number(initLng),
   };
 
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 15,
-    center: ironhackLX,
+    center: cityView,
   });
 
   const searchActivities = document.getElementById("searchActivities");
@@ -96,6 +96,7 @@ function initMap() {
     directionDisplay.setMap(map); */
 
   map.addListener("click", (mapMouseEvent) => {
+    infowindow.close();
     const marker = new google.maps.Marker({
       position: {
         lat: mapMouseEvent.latLng.lat(),
@@ -103,36 +104,69 @@ function initMap() {
       },
       map: map,
     });
+    console.log(marker);
+    document.getElementById("newActlLat").value = marker.position.lat;
+    document.getElementById("newActlLng").value = marker.position.lng;
 
-    document.getElementById("lat").value = mapMouseEvent.latLng.lat();
-    document.getElementById("lng").value = mapMouseEvent.latLng.lng();
+    infowindow.open({
+      anchor: marker,
+      map,
+      shouldFocus: false,
+    });
   });
 
-  let allLat = document.getElementsByClassName("dbLat");
-  let allLng = document.getElementsByClassName("dbLng");
-  let allNames = document.getElementsByClassName("place-name");
-
-  for (let i = 0; i < allLat.length; i++) {
-    setTimeout(() => {
-      const marker = new google.maps.Marker({
-        position: {
-          lat: Number(allLat[i].value),
-          lng: Number(allLng[i].value),
-        },
-        animation: google.maps.Animation.DROP,
-        map: map,
-      });
-      marker.addListener("click", () => {
-        const infoWindow = new google.maps.InfoWindow({
-          content: allNames[i].innerHTML,
+  //let allNames = document.getElementsByClassName("place-name");
+  function dropMarkers() {
+    let allLat = document.getElementsByClassName("dbLat");
+    let allLng = document.getElementsByClassName("dbLng");
+    for (let i = 0; i < allLat.length; i++) {
+      setTimeout(() => {
+        const marker = new google.maps.Marker({
+          position: {
+            lat: Number(allLat[i].value),
+            lng: Number(allLng[i].value),
+          },
+          animation: google.maps.Animation.DROP,
+          map: map,
         });
+        markers.push(marker);
+        marker.addListener("click", () => {
+          const infoWindow = new google.maps.InfoWindow({
+            content: allNames[i].innerHTML,
+          });
 
-        infoWindow.open({
-          anchor: marker,
-          map,
-          shouldFocus: false,
+          infoWindow.open({
+            anchor: marker,
+            map,
+            shouldFocus: false,
+          });
         });
+      }, 500 * i);
+    }
+  }
+  function setMapOnAll(map) {
+    for (let i = 0; i < markers.length; i++) {
+      markers[i].setMap(map);
+    }
+  }
+  const dateCards = document.querySelectorAll(".card");
+  dateCards[0].classList.toggle("selected");
+  const initMarkers = dateCards[0].querySelectorAll(".markers-lat");
+  dropMarkers();
+  for (let i = 0; i < dateCards.length; i++) {
+    dateCards[i].addEventListener("click", (event) => {
+      setMapOnAll(null);
+      markers = [];
+      dateCards.forEach((box) => {
+        box.classList.remove("selected");
       });
-    }, 500 * i);
+      document.getElementById("dateId").value = event.currentTarget.id;
+      document
+        .getElementById(event.currentTarget.id)
+        .classList.toggle("selected");
+      document.getElementById("markers-lat").classList.toggle("dbLat");
+      document.getElementById("markers-lng").classList.toggle("dbLng");
+      dropMarkers();
+    });
   }
 }
