@@ -64,12 +64,13 @@ router.post("/create", isLoggedIn, (req, res, next) => {
         });
       })
       .then((createdTrip) => {
-        console.log(createdTrip._id, req.session.user._id);
-        User.findByIdAndUpdate(req.session.user._id, {
+        return User.findByIdAndUpdate(req.session.user._id, {
           $push: { trips: createdTrip._id },
         });
       })
-      .then(() => res.redirect("/trips"))
+      .then(() => {
+        res.redirect("/trips");
+      })
       .catch((err) => next(err))
   );
 });
@@ -95,7 +96,7 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
         trip.dateArr.push(moment(dt).format("DD/MM/YYYY"));
         dt.setDate(dt.getDate() + 1);
       }
-      console.log(trip);
+      //   console.log(trip);
       res.render("trips/trip-details/main", { trip, user: req.session.user });
     })
     .catch((err) => next(err));
@@ -104,7 +105,7 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
 router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
   const { newActName, newActlLat, newActlLng } = req.body;
   const { id } = req.params;
-  Activity.create({
+  return Activity.create({
     name: newActName,
     location: {
       type: "Point",
@@ -112,7 +113,8 @@ router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
     },
   })
     .then((createdActivity) => {
-      return Trip.findByIdAndUpdate(id, {
+      console.log(createdActivity._id);
+      Trip.findByIdAndUpdate(id, {
         $push: { activities: createdActivity._id },
       });
     })
