@@ -1,6 +1,6 @@
 <h1>Checkout your trips</h1>
 <main class="container row">
-  <div class="card trip-cards">
+  <div class="card trip-cards m-2">
     <div class="card-body">
       <h5 class="card-title">Input new trip</h5>
       <form action="/trips/create" method="post">
@@ -20,7 +20,7 @@
     </div>
   </div>
   {{#each data.trips}}
-    <div class="card trip-cards">
+    <div class="card trip-cards m-2">
       {{! <img class="card-img-top" src="..." alt="Card image cap"> }}
       <div class="card-body">
         <h5 class="card-title">{{cityName}}</h5>
