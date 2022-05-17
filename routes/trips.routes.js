@@ -17,8 +17,6 @@ const Day = require("../models/Day.model");
 
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
-  //
-
   User.findById(req.session.user._id)
     .populate("trips")
     .then((data) => {
@@ -26,12 +24,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
       res.render("trips/main", { data, user: req.session.user });
     })
     .catch((err) => next(err));
-
-  /*   Trip.find()
-    .then((trips) => {
-      res.render("trips/main", { trips, user: req.session.user });
-    })
-    .catch((err) => next(err)); */
 });
 
 router.post("/create", isLoggedIn, (req, res, next) => {
@@ -87,9 +79,9 @@ router.post("/create", isLoggedIn, (req, res, next) => {
   );
 });
 
-router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
-  const { id } = req.params;
-  Trip.findById(id)
+router.get("/:tripId/trip-details/:dateId", isLoggedIn, (req, res, next) => {
+  const { tripId, dateId } = req.params;
+  Trip.findById(tripId)
     .populate({
       path: "days",
       model: Day,
@@ -99,14 +91,18 @@ router.get("/trip-details/:id", isLoggedIn, (req, res, next) => {
       },
     })
     .then((trip) => {
-      res.render("trips/trip-details/main", { trip, user: req.session.user });
+      res.render("trips/trip-details/main", {
+        trip,
+        user: req.session.user,
+        defaultDate: dateId,
+      });
     })
     .catch((err) => next(err));
 });
 
-router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
+router.post("/trip-details/:tripId/create", isLoggedIn, (req, res, next) => {
   const { newActName, newActlLat, newActlLng, dateId } = req.body;
-  const { id } = req.params;
+  const { tripId } = req.params;
   return Activity.create({
     name: newActName,
     location: {
@@ -119,7 +115,7 @@ router.post("/trip-details/:id/create", isLoggedIn, (req, res, next) => {
         $push: { activities: createdActivity._id },
       });
     })
-    .then(() => res.redirect(`/trips/trip-details/${id}`))
+    .then(() => res.redirect(`/trips/${tripId}/trip-details/${dateId}`))
     .catch((err) => next(err));
 });
 

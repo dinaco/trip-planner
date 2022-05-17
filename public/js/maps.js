@@ -165,9 +165,13 @@ function initMap() {
     }
   }
   const dateCards = document.querySelectorAll(".card");
-  dateCards[0].classList.toggle("selected");
-  dropMarkers();
+  /*   dateCards[0].classList.toggle("selected");
+  dropMarkers(); */
   for (let i = 0; i < dateCards.length; i++) {
+    if (dateCards[i].id == document.getElementById("dateId").value) {
+      dateCards[i].classList.toggle("selected");
+      dropMarkers();
+    }
     dateCards[i].addEventListener("click", (event) => {
       setMapOnAll(null);
       markers = [];
