@@ -1,8 +1,9 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
 }
 
 a {
@@ -63,11 +64,14 @@ aside {
 }
 
 #planet-earth {
-  padding: 0;
-  background-image: url("../images/lights-planet-earth-europe.jpeg");
+  background: url("../images/lights-planet-earth-europe.jpeg") no-repeat center
+    center fixed;
   background-size: cover;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .controls {
   margin-top: 10px;

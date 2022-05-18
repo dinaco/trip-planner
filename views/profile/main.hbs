@@ -1,25 +1,27 @@
-<h3>Hey
-  {{user.firstName}}
-  !</h3>
+<div class="container">
+  <h3>Hey
+    {{user.firstName}}
+    !</h3>
 
-<h4>Today is a good day to plan some trips !</h4>
+  <h4>Today is a good day to plan some trips !</h4>
 
-{{! <a href="/">Back Home</a> }}
+  {{! <a href="/">Back Home</a> }}
 
-<div class="mt-5">
-  <h3>About you</h3>
-  <div class="profile-section">
-    <div class="px-5">
-      <p>your first name: <span>{{user.firstName}}</span></p>
-      <p>your last name: <span>{{user.lastName}}</span></p>
-      <p>your email: <span>{{user.email}}</span> </p>
-      <p> <a href="/profile/delete-profile">Delete your account</a></p>
-      <p> <a href="/profile/edit-profile-picture">Edit profile picture</a></p>
+  <div class="mt-5">
+    <h3>About you</h3>
+    <div class="profile-section">
+      <div class="px-5">
+        <p>your first name: <span>{{user.firstName}}</span></p>
+        <p>your last name: <span>{{user.lastName}}</span></p>
+        <p>your email: <span>{{user.email}}</span> </p>
+        <p> <a href="/profile/delete-profile">Delete your account</a></p>
+        <p> <a href="/profile/edit-profile-picture">Edit profile picture</a></p>
 
-    </div>
+      </div>
 
-    <div class="profile-header-img px-5">
-      <img src="{{user.profileImage}}" alt="" class="img-circle" />
+      <div class="profile-header-img px-5">
+        <img src="{{user.profileImage}}" alt="" class="img-circle" />
+      </div>
     </div>
   </div>
 </div>
