@@ -13,6 +13,7 @@ function initMap() {
   const initLat = document.getElementById("initLat").value;
   const initLng = document.getElementById("initLng").value;
   let markers = [];
+  let travelMode = "WALKING";
   const cityView = {
     lat: Number(initLat),
     lng: Number(initLng),
@@ -184,6 +185,13 @@ function initMap() {
         });
       }, 500 * i);
     }
+    /*     let bounds = new google.maps.LatLngBounds();
+    for (let i = 0; i < markers.length; i++) {
+      console.log(markers[i]);
+      bounds.extend(markers[i]);
+    }
+
+    map.fitBounds(bounds); */
   }
   function setMapOnAll(map) {
     for (let i = 0; i < markers.length; i++) {
@@ -215,14 +223,14 @@ function initMap() {
       origin: accomodationCoord,
       destination: accomodationCoord,
       waypoints: wayPoints,
-      travelMode: "WALKING",
+      travelMode,
     };
     if (wayPoints.length > 0) {
       directionService.route(directionRequest, function (response, status) {
         if (status === "OK") {
           directionDisplay.setDirections(response);
         } else {
-          window.alert("No direction found for this travel mode");
+          window.alert(`No direction found for travel mode "${travelMode}"`);
         }
         let km = 0;
         let time = 0;
@@ -233,7 +241,7 @@ function initMap() {
         let distance = Math.round(km / 1000);
         document.querySelector(
           ".distance"
-        ).innerHTML = `<p>Total Kms: ${distance}</p><p>Total time: ${
+        ).innerHTML = `<p>Kms: ${distance} | Time: ${
           (time / 60 / 60).toString().split(".")[0]
         }h ${Math.round(
           60 / (100 / Number((time / 60 / 60).toFixed(2).split(".")[1]))
@@ -242,7 +250,9 @@ function initMap() {
       directionDisplay.setMap(map);
     }
   }
-
+  let km = 0;
+  let time = 0;
+  let distance = 0;
   const dateCards = document.querySelectorAll(".card");
   for (let i = 0; i < dateCards.length; i++) {
     if (dateCards[i].id == document.getElementById("dateId").value) {
@@ -264,4 +274,12 @@ function initMap() {
       getDirections();
     });
   }
+  document
+    .querySelectorAll('input[name="travelmode-radio"]')
+    .forEach((elem) => {
+      elem.addEventListener("change", function (event) {
+        travelMode = event.currentTarget.value;
+        getDirections();
+      });
+    });
 }

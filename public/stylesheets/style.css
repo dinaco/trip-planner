@@ -80,7 +80,17 @@ aside {
   margin-left: 12px;
   padding: 5px 11px 0px 11px;
 }
-
+.distance {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: white;
+  margin: 0.7em 1em;
+  padding: 0 1em;
+  font-weight: bold;
+}
 #mode-selector label {
   font-family: Roboto;
   font-size: 13px;

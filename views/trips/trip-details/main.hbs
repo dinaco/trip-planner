@@ -17,21 +17,24 @@
                 hidden
               />
 <div class="container trip-details">
+            <div class="btn distance">
+          </div>
     <div id="mode-selector" class="controls">
         <input
           type="radio"
-          name="type"
+          name="travelmode-radio"
           id="changemode-walking"
           checked="checked"
+          value="WALKING"
         />
         <label for="changemode-walking">Walking</label>
 
-        <input type="radio" name="type" id="changemode-transit" />
+        <input type="radio" name="travelmode-radio" id="changemode-transit" value="TRANSIT" />
         <label for="changemode-transit">Transit</label>
 
-        <input type="radio" name="type" id="changemode-driving" />
+        <input type="radio" name="travelmode-radio" id="changemode-driving" value="DRIVING" />
         <label for="changemode-driving">Driving</label>
-        <input type="radio" name="type" id="changemode-biking" />
+        <input type="radio" name="travelmode-radio" id="changemode-biking" value="BICYCLING" />
         <label for="changemode-biking">Biking</label>
       </div>
   <div id="map"></div>
@@ -93,8 +96,6 @@
               />
             {{/each}}
           </ol>
-          <div class="distance">
-          </div>
           {{else}}
           <span>No activities for this date</span>
           {{/if}}
