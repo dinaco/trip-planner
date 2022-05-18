@@ -7,7 +7,7 @@ const User = require("../models/User.model");
 
 // Require necessary (isLoggedOut and isLiggedIn) middleware in order to control access to specific routes
 const isLoggedIn = require("../middleware/isLoggedIn");
-
+const fileUploader = require("../config/cloudinary.config");
 /* GET home page */
 router.get("/", isLoggedIn, (req, res, next) => {
   /* const { firstName, lastName, email, profileImage } = req.session.user; */
@@ -36,18 +36,32 @@ router.get("/edit-profile-picture", isLoggedIn, (req, res, next) => {
   });
 });
 
-router.post("/edit-profile-picture", isLoggedIn, (req, res, next) => {
-  console.log(`the below id will be edited: --- ↓↓↓ ----`);
-  console.log(req.session.user._id);
+router.post(
+  "/edit-profile-picture",
+  isLoggedIn,
+  fileUploader.single("profileImage"),
+  (req, res, next) => {
+    console.log(`the below id will be edited: --- ↓↓↓ ----`);
+    console.log(req.session.user._id);
 
-  if (req.file) {
-    return User.findByIdAndUpdate(req.session.user._id, {
-      profileImage: req.file.path,
-    });
-  } else {
+    if (req.file) {
+      console.log("user found, profile pic updating");
+      return User.findByIdAndUpdate(
+        req.session.user._id,
+        {
+          profileImage: req.file.path,
+        },
+        { new: true }
+      )
+        .then((user) => {
+          req.session.user = user;
+          res.redirect("/profile");
+        })
+        .catch((e) => console.log(e));
+    } else {
+      res.redirect("profile/main");
+    }
   }
-
-  res.redirect("/");
-});
+);
 
 module.exports = router;
