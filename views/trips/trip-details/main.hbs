@@ -11,6 +11,23 @@
                 hidden
               />
 <div class="container trip-details">
+    <div id="mode-selector" class="controls">
+        <input
+          type="radio"
+          name="type"
+          id="changemode-walking"
+          checked="checked"
+        />
+        <label for="changemode-walking">Walking</label>
+
+        <input type="radio" name="type" id="changemode-transit" />
+        <label for="changemode-transit">Transit</label>
+
+        <input type="radio" name="type" id="changemode-driving" />
+        <label for="changemode-driving">Driving</label>
+        <input type="radio" name="type" id="changemode-biking" />
+        <label for="changemode-biking">Biking</label>
+      </div>
   <div id="map"></div>
   <div id="infowindow-content">
     <form action="/trips/trip-details/{{trip._id}}/create" method="post">
@@ -70,6 +87,8 @@
               />
             {{/each}}
           </ol>
+          <div class="distance">
+          </div>
           {{else}}
           <span>No activities for this date</span>
           {{/if}}

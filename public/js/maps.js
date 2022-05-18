@@ -6,7 +6,10 @@ function initMap() {
     lat: Number(initLat),
     lng: Number(initLng),
   };
-
+  const directionService = new google.maps.DirectionsService();
+  const directionDisplay = new google.maps.DirectionsRenderer({
+    suppressMarkers: true,
+  });
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
     center: cityView,
@@ -60,12 +63,6 @@ function initMap() {
     infowindow.open(map, marker);
   });
 
-  /*   const myMarker = new google.maps.Marker({
-    position: ironhackLX,
-    map: map,
-    title: "Ironhack lx",
-  }); */
-
   //navigator // geolocation
   /*   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -77,9 +74,6 @@ function initMap() {
       map.setCenter(center);
     })
   } */
-
-  /*   const directionService = new google.maps.DirectionsService();
-  const directionDisplay = new google.maps.DirectionsRenderer(); */
 
   /* const directionRequest = {
       origin: ironhackLX,
@@ -113,8 +107,10 @@ function initMap() {
       shouldFocus: false,
     });
   }); */
-
+  let wayPoints = [];
   function dropMarkers() {
+    wayPoints = [];
+    directionDisplay.set("directions", null);
     const allMarkersLat = document.querySelectorAll(".markers-lat");
     allMarkersLat.forEach((e) => e.classList.remove("dbLat"));
     const allMarkersLng = document.querySelectorAll(".markers-lng");
@@ -137,6 +133,12 @@ function initMap() {
       .querySelector(".selected")
       .getElementsByClassName("place-name");
     for (let i = 0; i < allLat.length; i++) {
+      wayPoints.push({
+        location: {
+          lat: Number(allLat[i].value),
+          lng: Number(allLng[i].value),
+        },
+      });
       setTimeout(() => {
         const marker = new google.maps.Marker({
           position: {
@@ -177,11 +179,40 @@ function initMap() {
       markers[i].setMap(map);
     }
   }
+
+  function getDirections() {
+    // console.log(document.querySelector('input[name="genderS"]:checked').value)
+    const directionRequest = {
+      origin: wayPoints[0],
+      destination: wayPoints[wayPoints.length - 1],
+      waypoints: wayPoints,
+      travelMode: "WALKING",
+    };
+    if (wayPoints.length > 0) {
+      directionService.route(directionRequest, function (response, status) {
+        if (status === "OK") {
+          directionDisplay.setDirections(response);
+        } else {
+          window.alert("No direction found");
+        }
+        let km = 0;
+        response.routes[0].legs.map((e) => (km += Number(e.distance.value)));
+        let distance = Math.round(km / 1000);
+        console.log(distance);
+        document.querySelector(
+          ".distance"
+        ).innerHTML = `<p>Total Kms: ${distance}</p>`;
+      });
+      directionDisplay.setMap(map);
+    }
+  }
+
   const dateCards = document.querySelectorAll(".card");
   for (let i = 0; i < dateCards.length; i++) {
     if (dateCards[i].id == document.getElementById("dateId").value) {
       dateCards[i].classList.toggle("selected");
       dropMarkers();
+      getDirections();
     }
     dateCards[i].addEventListener("click", (event) => {
       setMapOnAll(null);
@@ -194,6 +225,7 @@ function initMap() {
         .getElementById(event.currentTarget.id)
         .classList.toggle("selected");
       dropMarkers();
+      getDirections();
     });
   }
 }
