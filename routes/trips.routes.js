@@ -20,7 +20,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
   User.findById(req.session.user._id)
     .populate("trips")
     .then((data) => {
-      console.log(data);
       res.render("trips/main", { data, user: req.session.user });
     })
     .catch((err) => next(err));
@@ -139,7 +138,6 @@ router.post(
       })
     }) */
       .then(() => {
-        console.log("deleted");
         res.redirect(`/trips/${tripId}/trip-details/${dateId}`);
       })
       .catch((err) => next(err));

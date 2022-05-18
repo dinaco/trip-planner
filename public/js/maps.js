@@ -74,51 +74,6 @@ function initMap() {
     ).innerHTML = `<button class="btn btn-primary" type="submit">Add</button>`;
     infowindow.open(map, marker);
   });
-
-  //navigator // geolocation
-  /*   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-
-      map.setCenter(center);
-    })
-  } */
-
-  /* const directionRequest = {
-      origin: ironhackLX,
-      destination: 'Madrid, ES',
-      travelMode: 'TRANSIT',
-    };
-    directionService.route(directionRequest, function (response, status) {
-      if (status === 'OK') {
-        directionDisplay.setDirections(response);
-      } else {
-        window.alert('No direction foundd');
-      }
-    });
-    directionDisplay.setMap(map); */
-
-  /*   map.addListener("click", (mapMouseEvent) => {
-    infowindow.close();
-    const marker = new google.maps.Marker({
-      position: {
-        lat: mapMouseEvent.latLng.lat(),
-        lng: mapMouseEvent.latLng.lng(),
-      },
-      map: map,
-    });
-    document.getElementById("newActlLat").value = marker.position.lat;
-    document.getElementById("newActlLng").value = marker.position.lng;
-
-    infowindow.open({
-      anchor: marker,
-      map,
-      shouldFocus: false,
-    });
-  }); */
   let wayPoints = [];
   function dropMarkers() {
     wayPoints = [];
@@ -218,7 +173,6 @@ function initMap() {
       map: map,
     });
     markers.push(marker);
-    // console.log(document.querySelector('input[name="genderS"]:checked').value)
     const directionRequest = {
       origin: accomodationCoord,
       destination: accomodationCoord,

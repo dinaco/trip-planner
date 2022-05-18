@@ -90,6 +90,7 @@ aside {
   margin: 0.7em 13em;
   padding: 0 1em;
   font-weight: bold;
+  cursor: default;
 }
 #mode-selector label {
   font-family: Roboto;
