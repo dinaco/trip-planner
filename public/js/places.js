@@ -1,5 +1,4 @@
 function initSearch() {
-  const cityInput = document.getElementById("cityName");
   /*   const options = {
     bounds: defaultBounds,
     componentRestrictions: { country: "us" },
@@ -7,20 +6,24 @@ function initSearch() {
     strictBounds: false,
     types: ["establishment"],
   }; */
+
+  // ------------ for city ---------------//
+  const cityInput = document.getElementById("cityName");
   const cityOptions = {
     types: ["(cities)"],
   };
-  const autocomplete = new google.maps.places.Autocomplete(
+
+  const autocompleteCity = new google.maps.places.Autocomplete(
     cityInput,
     cityOptions
   );
   console.log("initSearch ongoing -------------- ");
   /*  const infowindow = new google.maps.InfoWindow();
   const infowindowContent = document.getElementById("infowindow-content"); */
-  autocomplete.addListener("place_changed", () => {
+  autocompleteCity.addListener("place_changed", () => {
     /*    infowindow.close(); */
-    autocomplete.getPlace();
-    const place = autocomplete.getPlace();
+    autocompleteCity.getPlace();
+    const place = autocompleteCity.getPlace();
     console.log(place);
     document.getElementById("cityLocationLat").value =
       place.geometry.location.lat();
@@ -39,5 +42,25 @@ function initSearch() {
     infowindowContent.children["place-address"].textContent =
       place.formatted_address; */
     /*     infowindow.open(map, marker); */
+  });
+
+  // ------------ for accomodation ---------------//
+  const accomodationInput = document.getElementById("accomodation");
+  const accomodationOptions = {
+    types: ["establishment"],
+  };
+  const autocompleteAccomodation = new google.maps.places.Autocomplete(
+    accomodationInput,
+    accomodationOptions
+  );
+
+  autocompleteAccomodation.addListener("place_changed", () => {
+    autocompleteAccomodation.getPlace();
+    const place = autocompleteAccomodation.getPlace();
+    console.log(place);
+    document.getElementById("accomodationLocationLat").value =
+      place.geometry.location.lat();
+    document.getElementById("accomodationLocationLng").value =
+      place.geometry.location.lng();
   });
 }

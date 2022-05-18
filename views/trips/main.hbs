@@ -5,16 +5,18 @@
       <h5 class="card-title">Input new trip</h5>
       <form action="/trips/create" method="post">
         <label for="cityName">City Name</label>
-        <input type="text" name="cityName" id="cityName" />
+        <input type="text" name="cityName" id="cityName" required />
         <input type="hidden" name="cityLocationLat" id="cityLocationLat">
         <input type="hidden" name="cityLocationLng" id="cityLocationLng">
         <input type="hidden" name="photoUrl" id="photoUrl">
         <label for="startDate">Start Date</label>
-        <input type="date" name="startDate" id="startDate" />
+        <input type="date" name="startDate" id="startDate" required/>
         <label for="endDate">End Date</label>
-        <input type="date" name="endDate" id="endDate" />
+        <input type="date" name="endDate" id="endDate" required/>
         <label for="accomodation">Accomodation</label>
-        <input type="text" name="accomodation" id="accomodation" />
+        <input type="text" name="accomodation" id="accomodation" required/>
+        <input type="hidden" name="accomodationLocationLat" id="accomodationLocationLat">
+        <input type="hidden" name="accomodationLocationLng" id="accomodationLocationLng">
         <button type="submit">Create</button>
       </form>
     </div>
