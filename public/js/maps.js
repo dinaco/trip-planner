@@ -71,7 +71,7 @@ function initMap() {
     document.getElementById("newActName").value = place.name;
     document.getElementById(
       "submitBtn"
-    ).innerHTML = `<button type="submit">Submit</button>`;
+    ).innerHTML = `<button class="btn btn-primary" type="submit">Add</button>`;
     infowindow.open(map, marker);
   });
 
@@ -170,7 +170,7 @@ function initMap() {
           }/delete/${document.getElementsByClassName("activity-id")[i].value}/${
             document.getElementById("trip-id").value
           }" method="post">
-          <button type="submit">Delete</button>
+          <button class="btn btn-danger" type="submit">Delete</button>
           </form>
           </div>`;
 
