@@ -18,7 +18,6 @@ function initMap() {
     lat: Number(initLat),
     lng: Number(initLng),
   };
-  console.log(cityView.lat);
   const defaultBounds = {
     north: cityView.lat + 0.1,
     south: cityView.lat - 0.1,
@@ -81,19 +80,20 @@ function initMap() {
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
     document.getElementById("new-place-name").innerHTML = place.name;
+    document.getElementById("new-place-address").innerHTML = place.adr_address;
     document.getElementById("new-place-address").innerHTML =
-      place.formatted_address;
+      document.querySelector(".street-address").innerHTML;
     document.getElementById("newActlLat").value = place.geometry.location.lat();
     document.getElementById("newActlLng").value = place.geometry.location.lng();
     document.getElementById("newActName").value = place.name;
     document.getElementById(
       "submitBtn"
-    ).innerHTML = `<button class="btn btn-primary" type="submit">Add</button>`;
+    ).innerHTML = `<button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>`;
     infowindow.open(map, marker);
   });
-  let wayPoints = [];
+  let waypoints = [];
   function dropMarkers() {
-    wayPoints = [];
+    waypoints = [];
     directionDisplay.set("directions", null);
     const allMarkersLat = document.querySelectorAll(".markers-lat");
     allMarkersLat.forEach((e) => e.classList.remove("dbLat"));
@@ -117,7 +117,7 @@ function initMap() {
       .querySelector(".selected")
       .getElementsByClassName("place-name");
     for (let i = 0; i < allLat.length; i++) {
-      wayPoints.push({
+      waypoints.push({
         location: {
           lat: Number(allLat[i].value),
           lng: Number(allLng[i].value),
@@ -142,7 +142,7 @@ function initMap() {
           }/delete/${document.getElementsByClassName("activity-id")[i].value}/${
             document.getElementById("trip-id").value
           }" method="post">
-          <button class="btn btn-danger" type="submit">Delete</button>
+          <button class="btn btn-danger" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
           </form>
           </div>`;
 
@@ -193,15 +193,19 @@ function initMap() {
     const directionRequest = {
       origin: accomodationCoord,
       destination: accomodationCoord,
-      waypoints: wayPoints,
+      waypoints,
       travelMode,
     };
-    if (wayPoints.length > 0) {
+    if (waypoints.length > 0) {
       directionService.route(directionRequest, function (response, status) {
         if (status === "OK") {
           directionDisplay.setDirections(response);
         } else {
-          window.alert(`No direction found for travel mode "${travelMode}"`);
+          document.querySelector(
+            ".modal-body"
+          ).innerHTML = `No direction found for travel mode "${travelMode}"`;
+          document.getElementById("exampleModal").modal("show");
+          // window.alert(`No direction found for travel mode "${travelMode}"`);
         }
         let km = 0;
         let time = 0;
@@ -210,24 +214,36 @@ function initMap() {
           time += Number(e.duration.value);
         });
         let distance = Math.round(km / 1000);
+        document.querySelector(".distance").classList.remove("d-none");
         document.querySelector(
           ".distance"
-        ).innerHTML = `<p>Kms: ${distance} | Travel Time: ${Number(
+        ).innerHTML = `<span> ${distance} km | Travel Time: ${Number(
           (time / 60 / 60).toString().split(".")[0]
         )}h ${Math.round(
           60 / (100 / Number((time / 60 / 60).toFixed(2).split(".")[1]))
         )}min | Total Time: ${
-          Number((time / 60 / 60).toString().split(".")[0]) + wayPoints.length
+          Number((time / 60 / 60).toString().split(".")[0]) + waypoints.length
         }h ${Math.round(
           60 / (100 / Number((time / 60 / 60).toFixed(2).split(".")[1]))
-        )}min</p>`;
+        )}min</span>`;
+
+        if (
+          Number((time / 60 / 60).toString().split(".")[0]) +
+            waypoints.length >=
+          8
+        ) {
+          document.querySelector(".distance").classList.add("alert-warning");
+          document.querySelector(".distance").classList.remove("alert-info");
+        } else {
+          document.querySelector(".distance").classList.add("alert-info");
+          document.querySelector(".distance").classList.remove("alert-warning");
+        }
       });
       directionDisplay.setMap(map);
+    } else {
+      document.querySelector(".distance").classList.add("d-none");
     }
   }
-  let km = 0;
-  let time = 0;
-  let distance = 0;
   const dateCards = document.querySelectorAll(".card");
   for (let i = 0; i < dateCards.length; i++) {
     if (dateCards[i].id == document.getElementById("dateId").value) {

@@ -1,4 +1,4 @@
-<h2>Trip to
+  <h2>Trip to
   {{trip.cityName}}
   from
   {{trip.formatStartDate}}
@@ -17,9 +17,11 @@
                 hidden
               />
 <div class="container trip-details">
-            <div class="btn distance">
+
+            <div class="alert distance p-2">
           </div>
-    <div id="mode-selector" class="controls">
+  <div id="map"></div>
+      <div id="mode-selector" class="controls">
         <input
           type="radio"
           name="travelmode-radio"
@@ -34,11 +36,10 @@
         <input type="radio" name="travelmode-radio" id="changemode-biking" value="BICYCLING" />
         <label for="changemode-biking">Biking</label>
       </div>
-  <div id="map"></div>
   <div id="infowindow-content">
     <form action="/trips/trip-details/{{trip._id}}/create" method="post">
-      <div id="new-place-name"></div>
-      <div id="new-place-address"></div>
+      <h5 id="new-place-name"></h5>
+      <p id="new-place-address"></p>
       <input type="hidden" name="newActName" id="newActName" />
       <input type="hidden" name="newActlLat" id="newActlLat" />
       <input type="hidden" name="newActlLng" id="newActlLng" />
@@ -102,9 +103,7 @@
   </aside>
 
 </div>
-<div class="row">
 
-</div>
 
 <script
   async

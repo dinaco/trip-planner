@@ -15,7 +15,7 @@
         <label for="endDate">End Date</label>
         <input type="date" name="endDate" id="endDate" required/>
         <label for="accomodation">Accomodation</label>
-        <input type="text" name="accomodation" id="accomodation" required disabled/>
+        <input type="text" name="accomodation" id="accomodation" title="Choose a city to enable this field" required disabled/>
         <input type="hidden" name="accomodationLocationLat" id="accomodationLocationLat">
         <input type="hidden" name="accomodationLocationLng" id="accomodationLocationLng">
         <input type="hidden" name="accomodationName" id="accomodationName">
@@ -26,19 +26,19 @@
   {{#each data.trips}}
     <div class="card trip-cards card m-2 col-3 p-0">
               <img src={{photoUrl}} alt="photo-trip" class="card-img-top">
-              <h5 class="card-title position-absolute text-white p-2">{{cityName}}</h5>
+              <h5 class="card-title position-absolute text-white px-2 py-3">{{cityName}}</h5>
+              <a href="/trips/calendar/{{_id}}" class="btn btn-primary position-absolute text-white m-2 calendar"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a>    
       <div class="card-body p-0 px-2 mt-2 d-flex flex-column justify-content-between">
         
         <p class="card-text">Start Date: {{formatStartDate}}</p>
         <p class="card-text">End Date: {{formatEndDate}}</p>
         <p class="card-text">Accomodation: {{accomodation.name}}</p>
-           <a href="/trips/{{_id}}/trip-details/{{days.[0]}}" class="btn btn-primary px-5 btn-block mb-4">Add
+           <a href="/trips/{{_id}}/trip-details/{{days.[0]}}" class="btn btn-success px-5 btn-block mb-4">Add
           Activities</a>
-{{!--         <a href="/trips/trip-overview/{{_id}}" class="btn btn-primary">Trip Overview</a> --}}
         <form class="d-grid gap-2" action="/trips/delete/{{_id}}" method="post">
+
           <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
-               
+        </form> 
       </div>
     </div>
   {{/each}}
