@@ -18,6 +18,20 @@ function initMap() {
     lat: Number(initLat),
     lng: Number(initLng),
   };
+  console.log(cityView.lat);
+  const defaultBounds = {
+    north: cityView.lat + 0.1,
+    south: cityView.lat - 0.1,
+    east: cityView.lng + 0.1,
+    west: cityView.lng - 0.1,
+  };
+  const options = {
+    bounds: defaultBounds,
+    /*     componentRestrictions: { country: "us" },
+    fields: ["address_components", "geometry", "icon", "name"],
+    strictBounds: false,
+    types: ["establishment"], */
+  };
   const directionService = new google.maps.DirectionsService();
   const directionDisplay = new google.maps.DirectionsRenderer({
     suppressMarkers: true,
@@ -28,7 +42,10 @@ function initMap() {
   });
 
   const searchActivities = document.getElementById("searchActivities");
-  const autocomplete = new google.maps.places.Autocomplete(searchActivities);
+  const autocomplete = new google.maps.places.Autocomplete(
+    searchActivities,
+    options
+  );
 
   const infowindow = new google.maps.InfoWindow();
   const infowindowContent = document.getElementById("infowindow-content");
@@ -195,8 +212,12 @@ function initMap() {
         let distance = Math.round(km / 1000);
         document.querySelector(
           ".distance"
-        ).innerHTML = `<p>Kms: ${distance} | Time: ${
+        ).innerHTML = `<p>Kms: ${distance} | Travel Time: ${Number(
           (time / 60 / 60).toString().split(".")[0]
+        )}h ${Math.round(
+          60 / (100 / Number((time / 60 / 60).toFixed(2).split(".")[1]))
+        )}min | Total Time: ${
+          Number((time / 60 / 60).toString().split(".")[0]) + wayPoints.length
         }h ${Math.round(
           60 / (100 / Number((time / 60 / 60).toFixed(2).split(".")[1]))
         )}min</p>`;

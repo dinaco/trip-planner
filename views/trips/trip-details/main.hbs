@@ -29,9 +29,6 @@
         />
         <label for="changemode-walking">Walking</label>
 
-        <input type="radio" name="travelmode-radio" id="changemode-transit" value="TRANSIT" />
-        <label for="changemode-transit">Transit</label>
-
         <input type="radio" name="travelmode-radio" id="changemode-driving" value="DRIVING" />
         <label for="changemode-driving">Driving</label>
         <input type="radio" name="travelmode-radio" id="changemode-biking" value="BICYCLING" />
@@ -97,7 +94,7 @@
             {{/each}}
           </ol>
           {{else}}
-          <span>No activities for this date</span>
+          <span class="text-danger">No activities for this date</span>
           {{/if}}
         </div>
       </div>
