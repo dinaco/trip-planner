@@ -58,9 +58,12 @@ function initSearch() {
     autocompleteAccomodation.getPlace();
     const place = autocompleteAccomodation.getPlace();
     console.log(place);
+    console.log(place.name);
     document.getElementById("accomodationLocationLat").value =
       place.geometry.location.lat();
     document.getElementById("accomodationLocationLng").value =
       place.geometry.location.lng();
+
+    document.getElementById("accomodationName").value = place.name;
   });
 }

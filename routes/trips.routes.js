@@ -36,6 +36,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
     accomodation,
     accomodationLocationLat,
     accomodationLocationLng,
+    accomodationName,
     photoUrl,
   } = req.body;
   let dateArr = [];
@@ -64,7 +65,7 @@ router.post("/create", isLoggedIn, (req, res, next) => {
           formatStartDate: moment(startDate).format("DD/MM/YYYY"),
           endDate,
           formatEndDate: moment(endDate).format("DD/MM/YYYY"),
-          "accomodation.name": accomodation,
+          "accomodation.name": accomodationName,
           "accomodation.type": "Point",
           "accomodation.coordinates": [
             accomodationLocationLat,
