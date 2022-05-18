@@ -3,11 +3,17 @@
   from
   {{trip.formatStartDate}}
   to
-  {{trip.formatEndDate}}</h2>
+  {{trip.formatEndDate}} - Accomodation: {{trip.accomodation.name}}</h2>
                 <input
                 type="text"
                 id="trip-id"
                 value="{{trip._id}}"
+                hidden
+              />
+                              <input
+                type="text"
+                id="accomodation-coordinates"
+                value="{{trip.accomodation.coordinates}}"
                 hidden
               />
 <div class="container trip-details">

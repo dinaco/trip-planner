@@ -73,7 +73,7 @@ aside {
 }
 #mode-selector {
   position: absolute;
-  bottom: 0;
+  margin-top: 82vh;
   z-index: 1;
   color: #fff;
   background-color: #4d90fe;

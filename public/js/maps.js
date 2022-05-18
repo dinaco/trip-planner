@@ -1,4 +1,15 @@
 function initMap() {
+  const accomodationCoord = {
+    location: {
+      lat: Number(
+        document.getElementById("accomodation-coordinates").value.split(",")[0]
+      ),
+      lng: Number(
+        document.getElementById("accomodation-coordinates").value.split(",")[1]
+      ),
+    },
+  };
+
   const initLat = document.getElementById("initLat").value;
   const initLng = document.getElementById("initLng").value;
   let markers = [];
@@ -181,10 +192,28 @@ function initMap() {
   }
 
   function getDirections() {
+    const marker = new google.maps.Marker({
+      position: {
+        lat: Number(
+          document
+            .getElementById("accomodation-coordinates")
+            .value.split(",")[0]
+        ),
+        lng: Number(
+          document
+            .getElementById("accomodation-coordinates")
+            .value.split(",")[1]
+        ),
+      },
+      icon: "https://res.cloudinary.com/dinaco/image/upload/v1652873427/trip-planner-project/1652873333-trimmy-accomodation-marker-removebg-preview_eo1izf.png",
+      animation: google.maps.Animation.DROP,
+      map: map,
+    });
+    markers.push(marker);
     // console.log(document.querySelector('input[name="genderS"]:checked').value)
     const directionRequest = {
-      origin: wayPoints[0],
-      destination: wayPoints[wayPoints.length - 1],
+      origin: accomodationCoord,
+      destination: accomodationCoord,
       waypoints: wayPoints,
       travelMode: "WALKING",
     };
@@ -193,15 +222,22 @@ function initMap() {
         if (status === "OK") {
           directionDisplay.setDirections(response);
         } else {
-          window.alert("No direction found");
+          window.alert("No direction found for this travel mode");
         }
         let km = 0;
-        response.routes[0].legs.map((e) => (km += Number(e.distance.value)));
+        let time = 0;
+        response.routes[0].legs.map((e) => {
+          km += Number(e.distance.value);
+          time += Number(e.duration.value);
+        });
         let distance = Math.round(km / 1000);
-        console.log(distance);
         document.querySelector(
           ".distance"
-        ).innerHTML = `<p>Total Kms: ${distance}</p>`;
+        ).innerHTML = `<p>Total Kms: ${distance}</p><p>Total time: ${
+          (time / 60 / 60).toString().split(".")[0]
+        }h ${Math.round(
+          60 / (100 / Number((time / 60 / 60).toFixed(2).split(".")[1]))
+        )}min</p>`;
       });
       directionDisplay.setMap(map);
     }
