@@ -18,18 +18,15 @@ function initSearch() {
     cityInput,
     cityOptions
   );
-  console.log("initSearch ongoing -------------- ");
   /*  const infowindow = new google.maps.InfoWindow();
   const infowindowContent = document.getElementById("infowindow-content"); */
   autocompleteCity.addListener("place_changed", () => {
     /*    infowindow.close(); */
     autocompleteCity.getPlace();
     const place = autocompleteCity.getPlace();
-    console.log(place);
     document.getElementById("cityLocationLat").value =
       place.geometry.location.lat();
     lat = place.geometry.location.lat();
-    console.log(lat, typeof lat);
     document.getElementById("cityLocationLng").value =
       place.geometry.location.lng();
     lng = place.geometry.location.lng();
@@ -38,9 +35,6 @@ function initSearch() {
       maxHeight: 350,
     });
 
-    console.log(
-      "photo link: " + place.photos[0].getUrl({ maxWidth: 350, maxHeight: 350 })
-    );
     //let photo = place.photos[0].getUrl({ 'maxWidth': 35, 'maxHeight': 35 });
     /*     infowindowContent.children["place-name"].textContent = place.name;
     infowindowContent.children["place-address"].textContent =
@@ -49,7 +43,6 @@ function initSearch() {
     let i = place.address_components.length - 1;
     cityCountry = place.address_components[i].short_name;
     cityCountry = cityCountry; //.toLowerCase();
-    console.log(cityCountry + " is of type: " + typeof cityCountry);
 
     defaultBounds = {
       north: Number(lat + 0.2),
@@ -59,7 +52,6 @@ function initSearch() {
     };
 
     const accomodationInput = document.getElementById("accomodation");
-    console.log(defaultBounds);
     const accomodationOptions = {
       bounds: defaultBounds,
       componentRestrictions: { country: cityCountry },
@@ -70,19 +62,15 @@ function initSearch() {
       accomodationInput,
       accomodationOptions
     );
+    accomodationInput.removeAttribute("disabled");
     loadAccomodationAutocomplete();
   });
 
-  // console.log(latCity, lngCity);
   // ------------ for accomodation ---------------//
   function loadAccomodationAutocomplete() {
     autocompleteAccomodation.addListener("place_changed", () => {
-      console.log(`This is printed?: ` + cityCountry, lat, lng, defaultBounds);
-
       autocompleteAccomodation.getPlace();
       const place = autocompleteAccomodation.getPlace();
-      console.log(place);
-      console.log(place.name);
       document.getElementById("accomodationLocationLat").value =
         place.geometry.location.lat();
       document.getElementById("accomodationLocationLng").value =
