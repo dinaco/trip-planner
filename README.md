@@ -4,7 +4,8 @@
 
 ## Description
 
-App to help you schedule your trips in details with a calendar view and maps.
+This project is our second project for the Ironhack Bootcamp, realized in week 6.
+In a few words, our project is an app to help you schedule your trips in details with a calendar view and maps.
 
 <br>
 
@@ -16,8 +17,8 @@ App to help you schedule your trips in details with a calendar view and maps.
 - **sign up** - As a user I want to sign up on the web page so that I can work on planning my trips (store and plan them)
 - **login** - As a user I want to be able to log in on the web page so that I can get back to my account
 - **logout** - As a user I want to be able to log out from the web page so that I can make sure no one will access my account
-- **trip list** - As a user I want to see the list of my trips (past and upcoming trips) and delete them.
-- **edit user** - As a user I want to be able to edit my profile and password (bonus: profile picture)
+- **trip list** - As a user I want to see the list of my trips (past and upcoming trips) and edit/delete them.
+- **edit user** - As a user I want to be able to edit my profile
 - **trip list** - As a user, in a form I can select the city and dates of my trip (as well as accomodation place <-bonus) and save it in my trip portfolio. I can see my other trips as cards if any.
   Once pressed "create trip", I am then rerouted to the "trip details page".
 - **trip details page**: As a user I can see a map centered on the accomodation place in the city of my trip. I can use a search bar to find venues that I want to visit. Once I select a place it will zoom in to the place, drop a marker, open an info window and I am able to save this place in my trip.
@@ -26,9 +27,10 @@ App to help you schedule your trips in details with a calendar view and maps.
 
 Bonus:
 
--**directions walking distance (km & time)**:
-Compute the distances between all the activities and display it to the user with some messages with suggestions. -**trip overview**:
-export to email / calendar and have a nice display of the activities
+- **directions walking distance (km & time)**:
+  Compute the distances between all the activities and display it to the user with some messages with suggestions.
+- **trip overview**:
+  export to email / calendar and have a nice display of the activities
 
 <br>
 
@@ -59,12 +61,24 @@ User model
 
 ```javascript
 {
-  firstName: String,
-  lastName: String,
-  email: {type:String, unique:true},
-  profileImage: {type:String, default:'tbd'}
-  passwordHash: String,
-  trips: [{ type: Schema.Types.ObjectId, ref: 'Trip' }],
+ firstName: {
+      type: String,
+      // unique: true -> Ideally, should be unique, but its up to you
+    },
+    lastName: {
+      type: String,
+      // unique: true -> Ideally, should be unique, but its up to you
+    },
+    email: { type: String, unique: true },
+
+    profileImage: {
+      type: String,
+      default:
+        "https://res.cloudinary.com/dinaco/image/upload/v1652452983/trip-planner-project/no-pic_d1kqun.jpg",
+    },
+    passwordHash: { type: String },
+
+    trips: [{ type: Schema.Types.ObjectId, ref: "Trip" }],
 }
 
 ```
@@ -73,29 +87,33 @@ Trip model
 
 ```javascript
 {
-  cityName: String,
-  cityId: String,
-  startDate: Date,
-  endDate: Date,
-  location: {
-    type: { type: String },
-    coordinates: [Number],
-  dayActivities :[{ type: Schema.Types.ObjectId, ref: 'dayActivity' }],
-  },
-
+  cityName: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    formatStartDate: String,
+    endDate: { type: Date, required: true },
+    formatEndDate: String,
+    accomodation: {
+      name: { type: String },
+      type: { type: String },
+      coordinates: [Number],
+    },
+    cityLocation: {
+      type: { type: String },
+      coordinates: [Number],
+    },
+    photoUrl: { type: String },
+    days: [{ type: Schema.Types.ObjectId, ref: "Day" }],
 }
 
 ```
 
-Day activities (dayActivity) model
+Day model
 
 ```javascript
 {
-  activityDate: Date,
-  activities : [{name: String, location: {
-    type: { type: String },
-    coordinates: [Number],
-  },}]
+      date: { type: Date, required: true },
+    formatDate: String,
+    activities: [{ type: Schema.Types.ObjectId, ref: "Activity" }],
 
 }
 
@@ -105,7 +123,7 @@ Day activities (dayActivity) model
 
 ## API's
 
-For the profile pic we will use cloudinary.
+For the profile picture we will use cloudinary.
 
 For this project we are using a range of google APIs:
 
@@ -114,7 +132,6 @@ For this project we are using a range of google APIs:
 - autocomplete
 - directions
 
-We plan to use the rest countries API for hte overview page.
 <br>
 
 ## Packages
