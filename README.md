@@ -5,7 +5,7 @@
 ## Description
 
 This project is our second project for the Ironhack Bootcamp, realized in week 6.
-In a few words, our project is an app to help you schedule your trips in details with a calendar view and maps.
+<br> In a few words, our project is an app to help you schedule your trips in details with a calendar view and maps.
 
 <br>
 

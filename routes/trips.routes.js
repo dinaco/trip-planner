@@ -151,4 +151,39 @@ router.post("/delete/:id", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
+/* router.get("/calendar/:_id", (req, res, next) => {
+  //let { email, subject, message } = req.body; // use this model to set up email:
+  const { _id } = req.params;
+  console.log("trip id: " + _id + ", and email: " + req.session.user.email);
+  const nodemailer = require("nodemailer");
+  let transporter = nodemailer.createTransport({
+    service: "Gmail", // gmail upgraded security on smtp so needs OAuth2 or an App Password to authenticate.
+    auth: {
+      user: process.env.GMAIL_ADDRESS,
+      pass: process.env.GMAIL_PASSWORD,
+    },
+  });
+  Trip.findById(_id)
+    .populate({
+      path: "days",
+      model: Day,
+      populate: {
+        path: "activities",
+        model: Activity,
+      },
+    })
+    .then((final_trip) => {
+      console.log(final_trip);
+      transporter.sendMail({
+        from: '"Trip planner " <myawesome@project.com>',
+        to: req.session.user.email,
+        subject: "Your trip recap'",
+        text: final_trip,
+        html: `<b>${final_trip}</b>`,
+      });
+    })
+    .then(() => console.log("email sent"))
+    .catch((e) => console.log(e));
+});
+ */
 module.exports = router;
