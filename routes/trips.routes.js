@@ -151,10 +151,11 @@ router.post("/delete/:id", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/send-email/:tripId", (req, res, next) => {
+router.get("/calendar/:_id", (req, res, next) => {
   //let { email, subject, message } = req.body; // use this model to set up email:
   const { email } = req.session.user.email;
-  const { tripId } = req.params;
+  const { _id } = req.params;
+  console.log(_id);
   let transporter = nodemailer.createTransport({
     service: "Gmail",
     auth: {
@@ -162,7 +163,7 @@ router.post("/send-email/:tripId", (req, res, next) => {
       pass: GMAIL_PASSWORD,
     },
   });
-  Trip.findById(tripId)
+  Trip.findById(_id)
     .populate({
       path: "days",
       model: Day,
