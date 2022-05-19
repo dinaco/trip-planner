@@ -36,36 +36,24 @@
         <input type="radio" name="travelmode-radio" id="changemode-biking" value="BICYCLING" />
         <label for="changemode-biking">Biking</label>
       </div>
-  <div id="infowindow-content">
-    <form action="/trips/trip-details/{{trip._id}}/create" method="post">
-      <h5 id="new-place-name"></h5>
-      <p id="new-place-address"></p>
-      <p id="new-phone"></p>
-      <p id="rating"></p>
-      <input type="hidden" name="newActName" id="newActName" />
-      <input type="hidden" name="newActlLat" id="newActlLat" />
-      <input type="hidden" name="newActlLng" id="newActlLng" />
       <input
         type="hidden"
-        name="dateId"
-        id="dateId"
+        name="dateIdLoad"
+        id="dateIdLoad"
         value="{{defaultDate}}"
       />
-      <input
+            <input
         type="hidden"
-        name="initLat"
-        id="initLat"
+        name="initLatLoad"
+        id="initLatLoad"
         value="{{trip.cityLocation.coordinates.[0]}}"
       />
       <input
         type="hidden"
-        name="initLng"
-        id="initLng"
+        name="initLngLoad"
+        id="initLngLoad"
         value="{{trip.cityLocation.coordinates.[1]}}"
       />
-      <div id="submitBtn"></div>
-    </form>
-  </div>
   <aside>
     <input type="text" name="searchActivities" id="searchActivities" />
     {{#each trip.days}}

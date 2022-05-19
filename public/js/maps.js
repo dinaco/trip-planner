@@ -10,8 +10,8 @@ function initMap() {
     },
   };
 
-  const initLat = document.getElementById("initLat").value;
-  const initLng = document.getElementById("initLng").value;
+  const initLat = document.getElementById("initLatLoad").value;
+  const initLng = document.getElementById("initLngLoad").value;
   let markers = [];
   let travelMode = "WALKING";
   const cityView = {
@@ -79,28 +79,40 @@ function initMap() {
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
-    document.getElementById("new-place-name").innerHTML = `<a href='${
-      place.website ? place.website : "#"
-    }' target='_blank'>${place.name}</a>`;
-    document.getElementById("new-place-address").innerHTML = place.adr_address;
-    document.getElementById("new-place-address").innerHTML =
-      document.querySelector(".street-address").innerHTML;
-    if (place.formatted_phone_number) {
-      document.getElementById(
-        "new-phone"
-      ).innerHTML = `| Tel: ${place.formatted_phone_number}`;
-    }
-    document.getElementById(
-      "rating"
-    ).innerHTML = `<span class="btn btn-success"><i class="fa fa-star-o" aria-hidden="true"></i> ${
+
+    const contentString = `<div id="infowindow-content">
+    <form action="/trips/trip-details/${
+      document.getElementById("trip-id").value
+    }/create" method="post">
+          <h5><a href='${
+            place.website ? place.website : "#"
+          }' target='_blank'>${place.name}</a></h5>
+      <p id="new-place-address" class="py-3">${place.adr_address}</p>
+      <p class="d-flex align-items-center"><span id="new-phone">Tel: ${
+        place.formatted_phone_number ? place.formatted_phone_number : "-----"
+      }</span><span id="rating" class="ms-auto"><span class="btn ${
+      place.rating > 3 ? "btn-success" : "btn-danger"
+    }"><i class="fa fa-star-o" aria-hidden="true"></i> ${
       place.rating ? place.rating : "-"
-    } </span>`;
-    document.getElementById("newActlLat").value = place.geometry.location.lat();
-    document.getElementById("newActlLng").value = place.geometry.location.lng();
-    document.getElementById("newActName").value = place.name;
-    document.getElementById(
-      "submitBtn"
-    ).innerHTML = `<button class="btn btn-primary" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>`;
+    } </span></span></p>
+      <input type="hidden" name="newActName" id="newActName" value="${
+        place.name
+      }" />
+      <input type="hidden" name="newActlLat" id="newActlLat" value="${place.geometry.location.lat()}" />
+      <input type="hidden" name="newActlLng" id="newActlLng" value="${place.geometry.location.lng()}"  />
+      <input
+        type="hidden"
+        name="dateId"
+        id="dateId"
+        value="${document.getElementById("dateIdLoad").value}"
+      />
+      <button class="btn btn-primary w-100" type="submit"><i class="fa fa-plus" aria-hidden="true"></i> Add</button>
+          </form>
+          </div>`;
+
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString,
+    });
     infowindow.open(map, marker);
   });
   let waypoints = [];
@@ -150,11 +162,13 @@ function initMap() {
           const contentString = `<div id="content">
           <h3>${allNames[i].innerHTML}</h3>
           <form action="/trips/trip-details/${
-            document.getElementById("dateId").value
-          }/delete/${document.getElementsByClassName("activity-id")[i].value}/${
-            document.getElementById("trip-id").value
-          }" method="post">
-          <button class="btn btn-danger" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
+            document.getElementById("dateIdLoad").value
+          }/delete/${
+            document
+              .querySelector(".selected")
+              .getElementsByClassName("activity-id")[i].value
+          }/${document.getElementById("trip-id").value}" method="post">
+          <button class="btn btn-danger w-100" type="submit"><i class="fa fa-times" aria-hidden="true"></i> Delete</button>
           </form>
           </div>`;
 
@@ -258,7 +272,7 @@ function initMap() {
   }
   const dateCards = document.querySelectorAll(".card");
   for (let i = 0; i < dateCards.length; i++) {
-    if (dateCards[i].id == document.getElementById("dateId").value) {
+    if (dateCards[i].id == document.getElementById("dateIdLoad").value) {
       dateCards[i].classList.toggle("selected");
       dropMarkers();
       getDirections();
@@ -269,7 +283,8 @@ function initMap() {
       dateCards.forEach((e) => {
         e.classList.remove("selected");
       });
-      document.getElementById("dateId").value = event.currentTarget.id;
+      console.log(event.currentTarget.id);
+      document.getElementById("dateIdLoad").value = event.currentTarget.id;
       document
         .getElementById(event.currentTarget.id)
         .classList.toggle("selected");

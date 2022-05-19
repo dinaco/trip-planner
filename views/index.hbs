@@ -1,11 +1,35 @@
-<!-- Background image -->
+<main id="planet-earth">
+  <div
+    class="container frame d-flex flex-column justify-content-center align-items-center text-white"
+  >
+    <h1 class="pb-4">
+      Welcome to Trip Planner
+    </h1>
+    <form
+      class="d-flex flex-column p-5 border border-1 border-dark rounded-3"
+      action="/login"
+      method="POST"
+    >
+      <input type="email" name="email" placeholder="Input email" required />
 
-<div id="planet-earth">
-  {{! <img src="images/lights-planet-earth-europe.jpeg" alt="" /> }}
-  <h1 class="text-white">
-    Welcome to Trip Planner
-  </h1>
-</div>
+      <input
+        type="password"
+        name="password"
+        placeholder="Input password"
+        required
+      />
+
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    {{!   <a href="/">Back Home</a>
+  |
+  <a href="/signup">Create a free account</a> }}
+    {{#if errorMessage}}
+      {{errorMessage}}
+    {{/if}}
+  </div>
+
+</main>
 
 <!-- Background image -->
 {{!-- {{#if user}}

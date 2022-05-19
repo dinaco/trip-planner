@@ -1,24 +1,20 @@
 <div class="container d-flex justify-content-center align-items-center flex-wrap-reverse">
 
-  {{! <a href="/">Back Home</a> }}
-
-  <div>
+  <div class="py-4">
     <h3>Hey
       {{user.firstName}}
       {{user.lastName}}
       !</h3>
 
     <h4>Today is a good day to plan some trips !</h4>
-          <p>your email: <span>{{user.email}}</span> </p>
-      <p>
+      <p class="my-5 d-flex justify-content-between">
         <a class="btn btn-primary" href="/profile/edit-profile-picture">Edit
-          profile picture</a></p>
-      <p>
+          profile picture</a>
         <a class="btn btn-danger trick" href="/profile/delete-profile">Delete
           your account</a></p>
 
   </div>
-  <div class="profile-section p-4">
+  <div class="profile-section px-4">
     <img
       class="img-responsive img-thumbnail"
       src="{{user.profileImage}}"
