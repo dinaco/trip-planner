@@ -1,102 +1,109 @@
 <div class="container trip-details my-4">
-    <h5 class="alert alert-light  mb-0">Trip to
-  {{trip.cityName}}
-  from
-  {{trip.formatStartDate}}
-  to
-  {{trip.formatEndDate}} - Accomodation: {{trip.accomodation.name}}</h5>
-                <input
-                type="text"
-                id="trip-id"
-                value="{{trip._id}}"
-                hidden
-              />
-                              <input
-                type="text"
-                id="accomodation-coordinates"
-                value="{{trip.accomodation.coordinates}}"
-                hidden
-              />
-          <main class="d-flex flex-column-reverse flex-sm-row map-view">
-                        <div class="d-none d-lg-block alert distance p-2 alert-info">
-          </div>
-  <div id="map"></div>
-      <div id="mode-selector" class="controls">
-        <input
-          type="radio"
-          name="travelmode-radio"
-          id="changemode-walking"
-          checked="checked"
-          value="WALKING"
-        />
-        <label for="changemode-walking">Walking</label>
+  <h5 class="alert alert-light mb-0">Trip to
+    {{trip.cityName}}
+    from
+    {{trip.formatStartDate}}
+    to
+    {{trip.formatEndDate}}
+    - Accomodation:
+    {{trip.accomodation.name}}</h5>
+  <input type="text" id="trip-id" value="{{trip._id}}" hidden />
+  <input
+    type="text"
+    id="accomodation-coordinates"
+    value="{{trip.accomodation.coordinates}}"
+    hidden
+  />
+  <main class="d-flex flex-column-reverse flex-sm-row map-view">
+    <div class="d-none d-lg-block alert distance p-2 alert-info">
+    </div>
+    <div id="map"></div>
+    <div id="mode-selector" class="controls">
+      <input
+        type="radio"
+        name="travelmode-radio"
+        id="changemode-walking"
+        checked="checked"
+        value="WALKING"
+      />
+      <label for="changemode-walking">Walking</label>
 
+      <input
+        type="radio"
+        name="travelmode-radio"
+        id="changemode-driving"
+        value="DRIVING"
+      />
+      <label for="changemode-driving">Driving</label>
+      <input
+        type="radio"
+        name="travelmode-radio"
+        id="changemode-biking"
+        value="BICYCLING"
+      />
+      <label for="changemode-biking">Biking</label>
+    </div>
     <input
-      type="radio"
-      name="travelmode-radio"
-      id="changemode-driving"
-      value="DRIVING"
+      type="hidden"
+      name="dateIdLoad"
+      id="dateIdLoad"
+      value="{{defaultDate}}"
     />
-    <label for="changemode-driving">Driving</label>
     <input
-      type="radio"
-      name="travelmode-radio"
-      id="changemode-biking"
-      value="BICYCLING"
+      type="hidden"
+      name="initLatLoad"
+      id="initLatLoad"
+      value="{{trip.cityLocation.coordinates.0}}"
     />
-    <label for="changemode-biking">Biking</label>
-  </div>
-  <input
-    type="hidden"
-    name="dateIdLoad"
-    id="dateIdLoad"
-    value="{{defaultDate}}"
-  />
-  <input
-    type="hidden"
-    name="initLatLoad"
-    id="initLatLoad"
-    value="{{trip.cityLocation.coordinates.[0]}}"
-  />
-  <input
-    type="hidden"
-    name="initLngLoad"
-    id="initLngLoad"
-    value="{{trip.cityLocation.coordinates.[1]}}"
-  />
-  <aside>
-    <input type="text" name="searchActivities" id="searchActivities" placeholder="Where to go?" />
-    {{#each trip.days}}
-      <div class="card p-0 bg-light" id="{{_id}}" style="cursor:pointer">
-        <div class="card-body p-2">
-          <h6 class="card-title mb-3">{{formatDate}}</h6>
-          {{#if activities}}
-            <ol>
-              {{#each activities}}
-                <li class="card-text my-2 place-name">{{name}}</li>
-                <input
-                  type="text"
-                  class="markers-lng"
-                  value="{{location.coordinates.[0]}}"
-                  hidden
-                />
-                <input
-                  type="text"
-                  class="markers-lat"
-                  value="{{location.coordinates.[1]}}"
-                  hidden
-                />
-                <input type="text" class="activity-id" value="{{_id}}" hidden />
-              {{/each}}
-            </ol>
-          {{else}}
-            <span class="text-danger">No activities for this date</span>
-          {{/if}}
+    <input
+      type="hidden"
+      name="initLngLoad"
+      id="initLngLoad"
+      value="{{trip.cityLocation.coordinates.1}}"
+    />
+    <aside>
+      <input
+        type="text"
+        name="searchActivities"
+        id="searchActivities"
+        placeholder="Where to go?"
+      />
+      {{#each trip.days}}
+        <div class="card p-0 bg-light" id="{{_id}}" style="cursor:pointer">
+          <div class="card-body p-2">
+            <h6 class="card-title mb-3">{{formatDate}}</h6>
+            {{#if activities}}
+              <ol>
+                {{#each activities}}
+                  <li class="card-text my-2 place-name">{{name}}</li>
+                  <input
+                    type="text"
+                    class="markers-lng"
+                    value="{{location.coordinates.0}}"
+                    hidden
+                  />
+                  <input
+                    type="text"
+                    class="markers-lat"
+                    value="{{location.coordinates.1}}"
+                    hidden
+                  />
+                  <input
+                    type="text"
+                    class="activity-id"
+                    value="{{_id}}"
+                    hidden
+                  />
+                {{/each}}
+              </ol>
+            {{else}}
+              <span class="text-danger">No activities for this date</span>
+            {{/if}}
+          </div>
         </div>
-      </div>
-    {{/each}}
-  </aside>
-</main>
+      {{/each}}
+    </aside>
+  </main>
 </div>
 <script src="../../../js/maps.js"></script>
 <script
