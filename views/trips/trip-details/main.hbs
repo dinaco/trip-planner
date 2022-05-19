@@ -1,5 +1,5 @@
 <div class="container trip-details my-4">
-    <h5 class="alert alert-light mb-0">Trip to
+    <h5 class="alert alert-light  mb-0">Trip to
   {{trip.cityName}}
   from
   {{trip.formatStartDate}}
@@ -67,7 +67,7 @@
   <aside>
     <input type="text" name="searchActivities" id="searchActivities" placeholder="Where to go?" />
     {{#each trip.days}}
-      <div class="card p-0" id="{{_id}}" style="cursor:pointer">
+      <div class="card p-0 bg-light" id="{{_id}}" style="cursor:pointer">
         <div class="card-body p-2">
           <h6 class="card-title mb-3">{{formatDate}}</h6>
           {{#if activities}}
