@@ -1,28 +1,35 @@
-<h2>Sign Up</h2>
-<div class="px-5">
-  <form action="/signup" method="POST" enctype="multipart/form-data">
-    <label for="firstName">First name</label>
-    <input type="text" name="firstName" required />
+<main class="container">
+  <h2 class="px-5">Sign Up</h2>
+  <div class="px-5 gap-2">
+    <form
+      action="/signup"
+      method="POST"
+      enctype="multipart/form-data"
+      class="frame"
+    >
+      <label for="firstName">First name</label>
+      <input type="text" name="firstName" required />
 
-    <label for="lastName">Last name</label>
-    <input type="text" name="lastName" required />
+      <label for="lastName">Last name</label>
+      <input type="text" name="lastName" required />
 
-    <label for="email">Email</label>
-    <input type="email" name="email" required />
+      <label for="email">Email</label>
+      <input type="email" name="email" required />
 
-    <label for="password">Password</label>
-    <input type="password" name="password" required />
+      <label for="password">Password</label>
+      <input type="password" name="password" required />
 
-    <label for="profileImage">Profile picture</label>
-    <input type="file" name="profileImage" />
+      <label for="profileImage">Profile picture</label>
+      <input type="file" name="profileImage" />
 
-    <button type="submit">Sign Up</button>
-  </form>
-  {{!   <a href="/">Back Home</a>
+      <button type="submit">Sign Up</button>
+    </form>
+    {{!   <a href="/">Back Home</a>
   |
   <a href="/login">Already a member?</a>
  }}
-  {{#if errorMessage}}
-    {{errorMessage}}
-  {{/if}}
-</div>
+    {{#if errorMessage}}
+      {{errorMessage}}
+    {{/if}}
+  </div>
+</main>
