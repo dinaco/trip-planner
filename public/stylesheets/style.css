@@ -35,6 +35,9 @@ aside {
   min-width: 23vw;
   margin: 2em;
 }
+.text-shadow-magic {
+  text-shadow: 0px 1px 3px rgb(0 0 0 / 80%);
+}
 .card-img-top {
   width: 100%;
   height: 20vw;

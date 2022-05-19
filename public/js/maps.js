@@ -153,7 +153,12 @@ function initMap() {
             lat: Number(allLat[i].value),
             lng: Number(allLng[i].value),
           },
-          label: `${i + 1}`,
+          label: {
+            text: `${i + 1}`,
+            color: "white",
+            fontWeight: "bold",
+            fontSize: "1.7em",
+          },
           animation: google.maps.Animation.DROP,
           map: map,
         });

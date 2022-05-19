@@ -24,10 +24,10 @@
     </div>
   </div>
   {{#each data.trips}}
-    <div class="card bg-light trip-cards card col-3 p-0">
+    <div class="card bg-light trip-cards col-3 p-0">
               <img src="{{photoUrl}}" alt="photo-trip" class="card-img-top">
-              <h5 class="card-title position-absolute text-white px-2 py-3">{{cityName}}</h5>
-                      <h6 class="card-title position-absolute text-white px-2 py-5 dates">{{formatStartDate}} - {{formatEndDate}}</h6>
+              <h5 class="text-shadow-magic card-title position-absolute text-white px-2 py-3">{{cityName}}</h5>
+                      <h6 class="text-shadow-magic card-title position-absolute text-white px-2 py-5 dates">{{formatStartDate}} - {{formatEndDate}}</h6>
              {{!--  <a href="/trips/calendar/{{_id}}" class="btn btn-primary position-absolute text-white m-2 calendar"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a>     --}}
       <div class="card-body p-0 px-2 mt-2 d-flex flex-column justify-content-between align-items-center">
         
