@@ -20,9 +20,9 @@ aside {
 }
 
 #map {
-  border: 2px solid black;
-  width: 70%;
+  flex: 3;
   height: 90vh;
+  width: 100%;
 }
 .trip-cards {
   width: 30vw;
@@ -47,12 +47,15 @@ aside {
 }
 .trip-details {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 1em;
 }
 aside {
-  width: 30%;
+  flex: 1;
   height: auto;
+}
+.map-view {
+  gap: 2em;
 }
 .selected {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -110,4 +113,12 @@ input[disabled] {
 .frame {
   padding: 10vw 5vw;
   background-color: rgba(255, 255, 255, 0.3);
+}
+#searchActivities {
+  margin-bottom: 1em;
+}
+input[type="text"],
+input[type="date"] {
+  height: 3em;
+  width: 100%;
 }
