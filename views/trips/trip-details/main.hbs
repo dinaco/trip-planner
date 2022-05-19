@@ -56,13 +56,13 @@
     type="hidden"
     name="initLatLoad"
     id="initLatLoad"
-    value="{{trip.cityLocation.coordinates.0}}"
+    value="{{trip.cityLocation.coordinates.[0]}}"
   />
   <input
     type="hidden"
     name="initLngLoad"
     id="initLngLoad"
-    value="{{trip.cityLocation.coordinates.1}}"
+    value="{{trip.cityLocation.coordinates.[1]}}"
   />
   <aside>
     <input type="text" name="searchActivities" id="searchActivities" placeholder="Where to go?" />
@@ -77,13 +77,13 @@
                 <input
                   type="text"
                   class="markers-lng"
-                  value="{{location.coordinates.0}}"
+                  value="{{location.coordinates.[0]}}"
                   hidden
                 />
                 <input
                   type="text"
                   class="markers-lat"
-                  value="{{location.coordinates.1}}"
+                  value="{{location.coordinates.[1]}}"
                   hidden
                 />
                 <input type="text" class="activity-id" value="{{_id}}" hidden />

@@ -116,8 +116,7 @@ input[disabled] {
 }
 input[type="text"],
 input[type="date"],
-input[type="email"],
-input[type="password"] {
+input[type="email"] {
   height: 3em;
   width: 100%;
 }
