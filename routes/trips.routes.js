@@ -151,4 +151,38 @@ router.post("/delete/:id", isLoggedIn, (req, res, next) => {
     .catch((err) => next(err));
 });
 
+router.post("/send-email/:tripId", (req, res, next) => {
+  //let { email, subject, message } = req.body; // use this model to set up email:
+  const { email } = req.session.user.email;
+  const { tripId } = req.params;
+  let transporter = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+      user: GMAIL_ADDRESS,
+      pass: GMAIL_PASSWORD,
+    },
+  });
+  Trip.findById(tripId)
+    .populate({
+      path: "days",
+      model: Day,
+      populate: {
+        path: "activities",
+        model: Activity,
+      },
+    })
+    .then((final_trip) => {
+      console.log(final_trip);
+      transporter.sendMail({
+        from: '"Trip planner " <myawesome@project.com>',
+        to: email,
+        subject: "Your trip recap'",
+        text: final_trip,
+        html: `<b>${final_trip}</b>`,
+      });
+    })
+    .then(() => console.log("email sent"))
+    .catch((e) => console.log(e));
+});
+
 module.exports = router;
