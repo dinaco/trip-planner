@@ -6,7 +6,7 @@
       <form class=" h-100 d-flex flex-column justify-content-evenly" action="/trips/create" method="post">
             <h5 class="card-title">Input new trip</h5>
         <label for="cityName">City Name</label>
-        <input type="text" name="cityName" id="cityName" required />
+        <input type="text" name="cityName" id="cityName" placeholder="Which city should we visit?" required />
         <input type="hidden" name="cityLocationLat" id="cityLocationLat">
         <input type="hidden" name="cityLocationLng" id="cityLocationLng">
         <input type="hidden" name="photoUrl" id="photoUrl">
@@ -15,7 +15,7 @@
         <label for="endDate">End Date</label>
         <input type="date" name="endDate" id="endDate" required/>
         <label for="accomodation">Accomodation</label>
-        <input type="text" name="accomodation" id="accomodation" title="Choose a city to enable this field" required disabled/>
+        <input type="text" name="accomodation" id="accomodation" placeholder="We need a place to rest!" title="Choose a city to enable this field" required disabled/>
         <input type="hidden" name="accomodationLocationLat" id="accomodationLocationLat">
         <input type="hidden" name="accomodationLocationLng" id="accomodationLocationLng">
         <input type="hidden" name="accomodationName" id="accomodationName">
