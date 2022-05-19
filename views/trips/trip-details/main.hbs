@@ -1,32 +1,35 @@
-<h2>Trip to
+<div class="container trip-details my-4">
+    <h5>Trip to
   {{trip.cityName}}
   from
   {{trip.formatStartDate}}
   to
-  {{trip.formatEndDate}}
-  - Accomodation:
-  {{trip.accomodation.name}}</h2>
-<input type="text" id="trip-id" value="{{trip._id}}" hidden />
-<input
-  type="text"
-  id="accomodation-coordinates"
-  value="{{trip.accomodation.coordinates}}"
-  hidden
-/>
-<div class="container trip-details">
-
-  <div class="alert distance p-2">
-  </div>
+  {{trip.formatEndDate}} - Accomodation: {{trip.accomodation.name}}</h5>
+                <input
+                type="text"
+                id="trip-id"
+                value="{{trip._id}}"
+                hidden
+              />
+                              <input
+                type="text"
+                id="accomodation-coordinates"
+                value="{{trip.accomodation.coordinates}}"
+                hidden
+              />
+          <main class="d-flex flex-column-reverse flex-sm-row map-view">
+                        <div class="d-none d-lg-block alert distance p-2 alert-info">
+          </div>
   <div id="map"></div>
-  <div id="mode-selector" class="controls">
-    <input
-      type="radio"
-      name="travelmode-radio"
-      id="changemode-walking"
-      checked="checked"
-      value="WALKING"
-    />
-    <label for="changemode-walking">Walking</label>
+      <div id="mode-selector" class="controls d-none d-sm-block">
+        <input
+          type="radio"
+          name="travelmode-radio"
+          id="changemode-walking"
+          checked="checked"
+          value="WALKING"
+        />
+        <label for="changemode-walking">Walking</label>
 
     <input
       type="radio"
@@ -62,7 +65,7 @@
     value="{{trip.cityLocation.coordinates.1}}"
   />
   <aside>
-    <input type="text" name="searchActivities" id="searchActivities" />
+    <input type="text" name="searchActivities" id="searchActivities" placeholder="Where to go?" />
     {{#each trip.days}}
       <div class="card" id="{{_id}}" style="cursor:pointer">
         <div class="card-body">
@@ -93,10 +96,10 @@
       </div>
     {{/each}}
   </aside>
-
-  <form action="/send-email/{{trip._id}}" method="post">
+    <form action="/send-email/{{trip._id}}" method="post">
     <button type="submit">Send the recap' per email</button>
   </form>
+</main>
 </div>
 
 <script

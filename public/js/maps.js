@@ -240,7 +240,6 @@ function initMap() {
           time += Number(e.duration.value);
         });
         let distance = Math.round(km / 1000);
-        document.querySelector(".distance").classList.remove("d-none");
         document.querySelector(
           ".distance"
         ).innerHTML = `<span> ${distance} km | Travel Time: ${Number(
@@ -267,7 +266,8 @@ function initMap() {
       });
       directionDisplay.setMap(map);
     } else {
-      document.querySelector(".distance").classList.add("d-none");
+      document.querySelector(".distance").innerHTML =
+        "Add activities to show distance info";
     }
   }
   const dateCards = document.querySelectorAll(".card");
