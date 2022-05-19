@@ -85,7 +85,7 @@ function initMap() {
       document.getElementById("trip-id").value
     }/create" method="post">
           <h5><a href='${
-            place.website ? place.website : "#"
+            place.website ? place.website : "/"
           }' target='_blank'>${place.name}</a></h5>
       <p id="new-place-address" class="py-3">${place.adr_address}</p>
       <p class="d-flex align-items-center"><span id="new-phone">Tel: ${
