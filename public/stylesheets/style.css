@@ -118,6 +118,11 @@ input[disabled] {
   padding: 12vw;
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+.frame10 {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
 #searchActivities {
   margin-bottom: 1em;
 }
