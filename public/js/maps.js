@@ -160,7 +160,7 @@ function initMap() {
         markers.push(marker);
         marker.addListener("click", () => {
           const contentString = `<div id="content">
-          <h3>${allNames[i].innerHTML}</h3>
+          <h5 class="mb-3">${allNames[i].innerHTML}</h5>
           <form action="/trips/trip-details/${
             document.getElementById("dateIdLoad").value
           }/delete/${

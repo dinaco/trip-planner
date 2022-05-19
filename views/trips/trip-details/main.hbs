@@ -1,5 +1,5 @@
 <div class="container trip-details my-4">
-    <h5>Trip to
+    <h5 class="alert alert-light mb-0">Trip to
   {{trip.cityName}}
   from
   {{trip.formatStartDate}}
@@ -69,11 +69,11 @@
     {{#each trip.days}}
       <div class="card" id="{{_id}}" style="cursor:pointer">
         <div class="card-body">
-          <h5 class="card-title">{{formatDate}}</h5>
+          <h6 class="card-title mb-3">{{formatDate}}</h6>
           {{#if activities}}
             <ol>
               {{#each activities}}
-                <li class="card-text place-name">{{name}}</li>
+                <li class="card-text my-2 place-name">{{name}}</li>
                 <input
                   type="text"
                   class="markers-lng"
