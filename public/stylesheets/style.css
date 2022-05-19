@@ -134,3 +134,6 @@ input[type="password"] {
 .frame input::-webkit-input-placeholder {
   text-align: center;
 }
+.active {
+  border-bottom: 1px solid black;
+}
