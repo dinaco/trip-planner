@@ -57,7 +57,7 @@ function initMap() {
   });
 
   autocomplete.addListener("place_changed", () => {
-    infowindow.close();
+    //  infowindow.close();
     marker.setVisible(false);
 
     const place = autocomplete.getPlace();
@@ -79,7 +79,9 @@ function initMap() {
 
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
-    document.getElementById("new-place-name").innerHTML = place.name;
+    document.getElementById("new-place-name").innerHTML = `<a href='${
+      place.website ? place.website : "#"
+    }' target='_blank'>${place.name}</a>`;
     document.getElementById("new-place-address").innerHTML = place.adr_address;
     document.getElementById("new-place-address").innerHTML =
       document.querySelector(".street-address").innerHTML;
@@ -88,6 +90,11 @@ function initMap() {
         "new-phone"
       ).innerHTML = `| Tel: ${place.formatted_phone_number}`;
     }
+    document.getElementById(
+      "rating"
+    ).innerHTML = `<span class="btn btn-success"><i class="fa fa-star-o" aria-hidden="true"></i> ${
+      place.rating ? place.rating : "-"
+    } </span>`;
     document.getElementById("newActlLat").value = place.geometry.location.lat();
     document.getElementById("newActlLng").value = place.geometry.location.lng();
     document.getElementById("newActName").value = place.name;
