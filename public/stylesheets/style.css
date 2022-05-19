@@ -32,11 +32,6 @@ aside {
   width: 100%;
   height: 20vw;
 }
-.profile-header-img > img.img-circle {
-  width: 120px;
-  height: 120px;
-  border: 2px solid #00b7ff;
-}
 
 .profile-section {
   display: flex;
@@ -45,6 +40,10 @@ aside {
   justify-content: center;
   align-items: center;
   align-content: stretch;
+}
+.profile-section img {
+  width: 100%;
+  height: 30vh;
 }
 .trip-details {
   display: flex;

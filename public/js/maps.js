@@ -83,6 +83,11 @@ function initMap() {
     document.getElementById("new-place-address").innerHTML = place.adr_address;
     document.getElementById("new-place-address").innerHTML =
       document.querySelector(".street-address").innerHTML;
+    if (place.formatted_phone_number) {
+      document.getElementById(
+        "new-phone"
+      ).innerHTML = `| Tel: ${place.formatted_phone_number}`;
+    }
     document.getElementById("newActlLat").value = place.geometry.location.lat();
     document.getElementById("newActlLng").value = place.geometry.location.lng();
     document.getElementById("newActName").value = place.name;
