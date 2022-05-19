@@ -20,30 +20,14 @@
       />
 
       <button type="submit" class="btn btn-primary">Login</button>
+      {{#if errorMessage}}
+        <span class="alert alert-danger">
+          {{errorMessage}}
+        </span>
+      {{/if}}
       <a href="/signup" class="btn btn-dark mt-5">Not a member yet? Register for
         free!</a>
     </form>
-    {{!   <a href="/">Back Home</a>
-  |
-  <a href="/signup">Create a free account</a> }}
-    {{#if errorMessage}}
-      {{errorMessage}}
-    {{/if}}
   </div>
 
 </main>
-
-<!-- Background image -->
-{{!-- {{#if user}}
-  <h6>Hey
-    {{user.firstName}}, how can we help you today ?</h6>
-  <a href="/logout">Log out</a>
-  |
-  <a href="/profile">Profile</a>
-  |
-  <a href="/trips">My Trips</a>
-{{else}}
-  <a href="/login">Login</a>
-  |
-  <a href="/signup">Sign Up</a>
-{{/if}} --}}

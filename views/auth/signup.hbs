@@ -30,12 +30,10 @@
       <button type="submit" class="btn btn-primary">Sign Up</button>
       <a href="/" class="btn btn-dark mt-5">Already have an account? Log in!</a>
     </form>
-    {{!   <a href="/">Back Home</a>
-  |
-  <a href="/login">Already a member?</a>
- }}
     {{#if errorMessage}}
-      {{errorMessage}}
+      <span class="alert alert-danger">
+        {{errorMessage}}
+      </span>
     {{/if}}
   </div>
 </main>

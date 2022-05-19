@@ -113,14 +113,14 @@ router.post(
 );
 
 /* router.get("/login", isLoggedOut, (req, res) => {
-  res.render("auth/login");
+  res.render("index");
 }); */
 
 router.post("/login", isLoggedOut, (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email) {
-    return res.status(400).render("auth/login", {
+    return res.status(400).render("index", {
       errorMessage: "Please provide your email.",
     });
   }
@@ -128,7 +128,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   // Here we use the same logic as above
   // - either length based parameters or we check the strength of a password
   if (password.length < 8) {
-    return res.status(400).render("auth/login", {
+    return res.status(400).render("index", {
       errorMessage: "Your password needs to be at least 8 characters long.",
     });
   }
@@ -139,7 +139,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       console.log(user);
       // If the user isn't found, send the message that user provided wrong credentials
       if (!user) {
-        return res.status(400).render("auth/login", {
+        return res.status(400).render("index", {
           errorMessage: "Wrong credentials.",
         });
       }
@@ -147,7 +147,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       // If user is found based on the username, check if the in putted password matches the one saved in the database
       bcrypt.compare(password, user.passwordHash).then((isSamePassword) => {
         if (!isSamePassword) {
-          return res.status(400).render("auth/login", {
+          return res.status(400).render("index", {
             errorMessage: "Wrong credentials.",
           });
         }
