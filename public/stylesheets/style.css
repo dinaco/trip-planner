@@ -17,23 +17,24 @@ h1 {
 aside {
   display: flex;
   flex-direction: column;
+  width: -webkit-fill-available;
 }
 
 #map {
-  flex: 3;
-  height: 90vh;
-  width: 100%;
+  width: 300vw;
+  height: 76vh;
 }
 .trip-cards {
-  width: 30vw;
   min-height: 60vh;
+  min-width: 25vw;
+  margin: 2em;
 }
 .card-img-top {
   width: 100%;
   height: 20vw;
 }
 
-.profile-section {
+.profile-image-section {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -41,7 +42,7 @@ aside {
   align-items: center;
   align-content: stretch;
 }
-.profile-section img {
+.profile-image-section img {
   width: 100%;
   height: 30vh;
 }
@@ -49,10 +50,6 @@ aside {
   display: flex;
   flex-direction: column;
   gap: 1em;
-}
-aside {
-  flex: 1;
-  height: auto;
 }
 .map-view {
   gap: 2em;
@@ -86,7 +83,7 @@ aside {
 }
 #mode-selector {
   position: absolute;
-  margin-top: 82vh;
+  margin-top: 68vh;
   z-index: 1;
   color: #fff;
   background-color: #4d90fe;
@@ -118,7 +115,9 @@ input[disabled] {
   margin-bottom: 1em;
 }
 input[type="text"],
-input[type="date"] {
+input[type="date"],
+input[type="email"],
+input[type="password"] {
   height: 3em;
   width: 100%;
 }
