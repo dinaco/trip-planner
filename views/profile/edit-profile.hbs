@@ -1,21 +1,31 @@
-<h2>Edit your profile picture</h2>
-<div>
-  <form
-    action="/profile/edit-profile-picture"
-    method="POST"
-    enctype="multipart/form-data"
-  >
+<div
+  class="container d-flex justify-content-center align-items-center flex-wrap-reverse border border-3 rounded-3 bg-light py-5"
+>
 
-    <label for="profileImage">Profile picture</label>
-    <input type="file" name="profileImage" value={{user.profileImage}} />
+  <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column justify-content-between">
+      <h2>Edit your profile picture</h2>
+      <div>
+        <form
+          action="/profile/edit-profile-picture"
+          method="POST"
+          enctype="multipart/form-data"
+          class="mt-5"
+        >
 
-    <button type="submit">Save new picture</button>
-  </form>
-  {{!   <a href="/">Back Home</a>
+          <label for="profileImage">Profile picture</label>
+          <input type="file" name="profileImage" value={{user.profileImage}} />
+
+          <button type="submit" class="btn btn-primary">Save new picture</button>
+        </form>
+        {{!   <a href="/">Back Home</a>
   |
   <a href="/login">Already a member?</a>
  }}
-  {{#if errorMessage}}
-    {{errorMessage}}
-  {{/if}}
+        {{#if errorMessage}}
+          {{errorMessage}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
 </div>
