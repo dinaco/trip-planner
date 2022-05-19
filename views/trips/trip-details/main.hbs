@@ -1,11 +1,11 @@
 <div class="container trip-details my-4">
-  <h5 class="alert alert-light mb-0">Trip to
+  <h5 class="alert alert-light mb-0">
     {{trip.cityName}}
-    from
+     | 
     {{trip.formatStartDate}}
-    to
+     - 
     {{trip.formatEndDate}}
-    - Accomodation:
+    | <i class="fa fa-bed" aria-hidden="true"></i>
     {{trip.accomodation.name}}</h5>
   <input type="text" id="trip-id" value="{{trip._id}}" hidden />
   <input
