@@ -45,10 +45,10 @@ function initSearch() {
     cityCountry = cityCountry; //.toLowerCase();
 
     defaultBounds = {
-      north: Number(lat + 0.1),
-      south: Number(lat - 0.1),
-      east: Number(lng + 0.1),
-      west: Number(lng - 0.1),
+      north: Number(lat + 0.2),
+      south: Number(lat - 0.2),
+      east: Number(lng + 0.2),
+      west: Number(lng - 0.2),
     };
 
     const accomodationInput = document.getElementById("accomodation");
