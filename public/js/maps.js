@@ -223,8 +223,8 @@ function initMap() {
     });
     markers.push(marker);
     const directionRequest = {
-      origin: accomodationCoord,
-      destination: accomodationCoord,
+      origin: accomodationCoord ? accomodationCoord : cityView,
+      destination: accomodationCoord ? accomodationCoord : cityView,
       waypoints,
       travelMode,
     };
