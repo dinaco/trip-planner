@@ -158,7 +158,7 @@ function initMap() {
             color: "white",
             fontWeight: "bold",
             fontSize: "1.7em",
-            className:'text-shadow-magic'
+            className: "text-shadow-magic",
           },
           animation: google.maps.Animation.DROP,
           map: map,
@@ -289,7 +289,6 @@ function initMap() {
       dateCards.forEach((e) => {
         e.classList.remove("selected");
       });
-      console.log(event.currentTarget.id);
       document.getElementById("dateIdLoad").value = event.currentTarget.id;
       document
         .getElementById(event.currentTarget.id)
