@@ -158,6 +158,7 @@ function initMap() {
             color: "white",
             fontWeight: "bold",
             fontSize: "1.7em",
+            className:'text-shadow-magic'
           },
           animation: google.maps.Animation.DROP,
           map: map,
