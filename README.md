@@ -161,7 +161,7 @@ we are using:
 
 ## Links
 
-### Live version (Heroku)
+### Live version
 
 [Deploy Link](https://ih-tripplanner.cyclic.app/)
 
