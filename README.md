@@ -1,4 +1,4 @@
-# Irontrip Planner
+# [Irontrip Planner](https://ih-tripplanner.cyclic.app/)
 
 <br>
 
@@ -163,7 +163,7 @@ we are using:
 
 ### Live version (Heroku)
 
-[Deploy Link](https://ironhack-trip-planner.herokuapp.com/)
+[Deploy Link](https://ih-tripplanner.cyclic.app/)
 
 ### Git
 
