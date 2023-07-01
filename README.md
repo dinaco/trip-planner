@@ -1,10 +1,9 @@
-# [Irontrip Planner](https://ih-tripplanner.cyclic.app/)
+# [Trip Planner](https://ih-tripplanner.cyclic.app/)
 
 <br>
 
 ## Description
 
-This project is our second project for the Ironhack Bootcamp, realized in week 6.
 <br> In a few words, our project is an app to help you schedule your trips in details where you can add activities for each day of the trip on the chosen city that you want to visit including a map that calculates the routes with distance and duration.
 
 <br>
@@ -153,12 +152,6 @@ we are using:
 
 <br>
 
-## Backlog
-
-[See the Trello board.](https://trello.com/b/jGq8LQpx/project-2-chloe-and-dino)
-
-<br>
-
 ## Links
 
 ### Live version
@@ -172,12 +165,6 @@ The url to your repository and to your deployed project
 [Repository Link](https://github.com/dinaco/trip-planner)
 
 <br>
-
-### Slides
-
-The url to your presentation slides
-
-[Slides Link](https://docs.google.com/presentation/d/1DhmMazw1mIWSqo6f-XONlO3093hvUjTPUwPq8enHHGs/edit?usp=sharing)
 
 ### Contributors
 
